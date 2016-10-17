@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="Inventario_ZapateriaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Entity.Empleado</class>
+    <class>Entity.Departamento</class>
+    <class>Entity.Municipio</class>
+    <class>Entity.Categoria</class>
+    <class>Entity.Usuario</class>
+    <class>Entity.Sucursal</class>
+    <class>Entity.Color</class>
+    <class>Entity.Pedido</class>
+    <class>Entity.Bodega</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+      <property name="javax.persistence.jdbc.user" value="zapateria"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.password" value="Alquimista12"/>
+    </properties>
+  </persistence-unit>
+</persistence>
