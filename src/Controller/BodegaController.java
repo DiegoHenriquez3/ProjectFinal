@@ -57,6 +57,8 @@ public class BodegaController {
             
         }
         
+        //PruebaEditRemote
+        
     
     
     }
