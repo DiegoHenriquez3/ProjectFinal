@@ -93,14 +93,16 @@ public class ZapatoM {
                 z.setColor(col);
                 z.setIdMarca(m);
                 z.setCategoria(cat);
-
+                
+                listZapato.add(z);
+                
                 z = new Zapato();
                 cat = new Categoria();
                 col = new Color();
                 t = new Talla();
                 m = new Marca();
-
-                z = new Zapato();
+                
+                
             }
 
         } catch (SQLException e) {

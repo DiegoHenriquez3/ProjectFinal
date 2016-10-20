@@ -31,8 +31,7 @@ public class ZapatoController {
     
     public void llenarList(JList jLista) {
         List<Zapato> listZapato = new ArrayList<>();
-        Zapato z = new Zapato();
-        
+    
         try {
             listZapato = zapatoM.listaZapatos();
         } catch (SQLException ex) {
@@ -43,7 +42,7 @@ public class ZapatoController {
         
         for (Zapato zapato : listZapato) {
             
-            modelList.addElement(jLista);
+            modelList.addElement(zapato);
             
             
         }
