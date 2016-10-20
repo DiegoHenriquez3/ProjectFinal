@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import oracle.jdbc.OracleCallableStatement;
@@ -76,6 +75,7 @@ public class ZapatoM {
         try {
             callPro = conDB.prepareCall("{call list_zapatos(?)}");
             callPro.registerOutParameter(1, OracleTypes.CURSOR);
+            callPro.executeQuery();
             ResultSet listResul = ((OracleCallableStatement) callPro).getCursor(1);
             while (listResul.next()) {
                 z.setIdZapato(listResul.getInt(1));
@@ -84,11 +84,11 @@ public class ZapatoM {
                 cat.setCategoria(listResul.getString(4));
                 z.setPrecio(listResul.getDouble(5));
                 t.setIdTalla(6);
-                t.setUs(String.valueOf(listResul.getDouble(6)));
-                m.setIdMarca(listResul.getInt(7));
-                m.setMarca(listResul.getString(8));
-                col.setIdColor(listResul.getInt(9));
-                col.setColor(listResul.getString(10));
+                t.setUs(String.valueOf(listResul.getDouble(7)));
+                m.setIdMarca(listResul.getInt(8));
+                m.setMarca(listResul.getString(9));
+                col.setIdColor(listResul.getInt(10));
+                col.setColor(listResul.getString(11));
                 z.setIdTalla(t);
                 z.setColor(col);
                 z.setIdMarca(m);

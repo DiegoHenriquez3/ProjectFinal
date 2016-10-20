@@ -73,9 +73,7 @@ public class Zapato {
         this.categoria = categoria;
     }
     
-    
-  
-
+   
     public Marca getIdMarca() {
         return idMarca;
     }
@@ -101,6 +99,13 @@ public class Zapato {
         this.cantidad = cantidad;
     }
     
+    
+    @Override
+    public String toString(){
+     
+        return nombre;
+    
+    }
     
     
     

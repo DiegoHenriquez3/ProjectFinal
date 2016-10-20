@@ -23,13 +23,13 @@ import javax.swing.JOptionPane;
  */
 public class BodegaController {
     
-    private DefaultComboBoxModel modelCombox= new DefaultComboBoxModel();
+    private DefaultComboBoxModel modelCombox;
     
     private BodegaM bgModel;
     private IngresarEmpleados formEmpInsert;
 
     public BodegaController() {
-        
+         modelCombox= new DefaultComboBoxModel();
     }
 
    

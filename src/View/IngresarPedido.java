@@ -10,6 +10,7 @@ import Controller.CategoriaController;
 import Controller.EmpleadoController;
 import Controller.SucursalController;
 import Controller.TallaController;
+import Controller.ZapatoController;
 import javax.swing.JComboBox;
 
 /**
@@ -20,6 +21,7 @@ public class IngresarPedido extends javax.swing.JFrame {
 
     private BodegaController bodegaC;
     private EmpleadoController empController;
+    private ZapatoController zController;
     private SucursalController scController;
     private CategoriaController catController;
     private TallaController tallaController;
@@ -37,6 +39,8 @@ public class IngresarPedido extends javax.swing.JFrame {
         catController.llenarCategoria(cbCategoria);
         tallaController= new TallaController();
         tallaController.llenarTallas(cbTallas);
+        zController =new ZapatoController();
+        zController.llenarList(jList);
     }
 
     /**
@@ -58,7 +62,7 @@ public class IngresarPedido extends javax.swing.JFrame {
         txtCantidad = new javax.swing.JTextField();
         cbCategoria = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jList = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnSave = new javax.swing.JButton();
@@ -97,12 +101,12 @@ public class IngresarPedido extends javax.swing.JFrame {
             }
         });
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        jList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane3.setViewportView(jList);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -327,7 +331,7 @@ public class IngresarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
