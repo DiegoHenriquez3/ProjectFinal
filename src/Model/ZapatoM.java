@@ -48,64 +48,69 @@ public class ZapatoM {
                 stmP.setInt(1, zapato.getCantidad());
                 stmP.setInt(2, zapato.getIdZapato());
                 stmP.setInt(3, zapato.getIdTalla().getIdTalla());
-                
-                if(stmP.executeUpdate()>0){
-                     flag=true;
+
+                if (stmP.executeUpdate() > 0) {
+                    flag = true;
                 }
-              
+
             }
-              conDB.commit(); 
-              conDB.setAutoCommit(true);
-              
+            conDB.commit();
+            conDB.setAutoCommit(true);
 
         } catch (Exception e) {
-         
+
         }
         return flag;
 
     }
-    
-    
-  public ArrayList<Zapato> listaZapatos() throws SQLException {
+
+    public ArrayList<Zapato> listaZapatos() throws SQLException {
         ArrayList<Zapato> listZapato = new ArrayList<>();
         Zapato z = new Zapato();
         Categoria cat = new Categoria();
+        Color col = new Color();
         Talla t = new Talla();
-        CallableStatement callPro = null; 
-               
+        Marca m = new Marca();
+        CallableStatement callPro = null;
+
         try {
             callPro = conDB.prepareCall("{call list_zapatos(?)}");
-            callPro.registerOutParameter(1,OracleTypes.CURSOR);
-            ResultSet listResul = ((OracleCallableStatement)callPro).getCursor(1);
+            callPro.registerOutParameter(1, OracleTypes.CURSOR);
+            ResultSet listResul = ((OracleCallableStatement) callPro).getCursor(1);
             while (listResul.next()) {
                 z.setIdZapato(listResul.getInt(1));
                 z.setNombre(listResul.getString(2));
                 cat.setIdCategoria(listResul.getInt(3));
                 cat.setCategoria(listResul.getString(4));
-                
-                
-                
-                
-                
-               z = new Zapato();
+                z.setPrecio(listResul.getDouble(5));
+                t.setIdTalla(6);
+                t.setUs(String.valueOf(listResul.getDouble(6)));
+                m.setIdMarca(listResul.getInt(7));
+                m.setMarca(listResul.getString(8));
+                col.setIdColor(listResul.getInt(9));
+                col.setColor(listResul.getString(10));
+                z.setIdTalla(t);
+                z.setColor(col);
+                z.setIdMarca(m);
+                z.setCategoria(cat);
+
+                z = new Zapato();
+                cat = new Categoria();
+                col = new Color();
+                t = new Talla();
+                m = new Marca();
+
+                z = new Zapato();
             }
-           
-           
 
         } catch (SQLException e) {
-              JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+        } finally {
+            conDB.close();
+
         }
-        finally{
-          conDB.close();
-         
-        }
-        
-       
+
         return listZapato;
     }
-
-
-    
-  
 
 }
