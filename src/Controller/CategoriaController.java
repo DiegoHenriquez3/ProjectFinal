@@ -7,9 +7,6 @@ package Controller;
 
 import Model.Categoria;
 import Model.CategoriaM;
-import Model.Sucursal;
-import Model.SucursalM;
-import View.IngresarPedido;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -42,12 +39,11 @@ public class CategoriaController {
             for (Categoria cat : listCategoria) {
             
          
-          modelCombox.addElement(cat);
+                    modelCombox.addElement(cat);
           
 
             }
             
-          // formEmpInsert.getCbBodega().setSelectedIndex(0);
             
         } 
         catch (Exception e) {

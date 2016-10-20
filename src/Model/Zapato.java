@@ -12,14 +12,17 @@ import java.util.List;
  */
 public class Zapato {
 
+ 
     private int idZapato;
+    private String nombre;
     private double precio;
-    private List<Color> colorList;
-    private List<Categoria> categoriaList; 
+    private Color color;
+    private Categoria categoria; 
     private Marca idMarca;
     private Talla idTalla;
+    private double precios;
     private int cantidad;
- 
+    
 
     public int getIdZapato() {
         return idZapato;
@@ -29,6 +32,23 @@ public class Zapato {
         this.idZapato = idZapato;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecios() {
+        return precios;
+    }
+
+    public void setPrecios(double precios) {
+        this.precios = precios;
+    }
+
+    
     public double getPrecio() {
         return precio;
     }
@@ -37,21 +57,24 @@ public class Zapato {
         this.precio = precio;
     }
 
-    public List<Color> getColorList() {
-        return colorList;
+    public Color getColor() {
+        return color;
     }
 
-    public void setColorList(List<Color> colorList) {
-        this.colorList = colorList;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
-    public List<Categoria> getCategoriaList() {
-        return categoriaList;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaList(List<Categoria> categoriaList) {
-        this.categoriaList = categoriaList;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
+    
+    
+  
 
     public Marca getIdMarca() {
         return idMarca;

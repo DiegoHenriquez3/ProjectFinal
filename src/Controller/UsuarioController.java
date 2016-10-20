@@ -28,7 +28,6 @@ public class UsuarioController {
         login=model.getUsuario(login);
         Login lg= new Login();
         if(login!=null){
-            
             Board board = new Board();
             board.setVisible(true);
             lg.setVisible(false);

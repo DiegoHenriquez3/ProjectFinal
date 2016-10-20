@@ -43,7 +43,7 @@ public class BodegaController {
         try {
             for (Bodega bodega : listBodega) {
             
-         // modelCombox.insertElementAt(bodega.getNombre(), bodega.getIdBodega());
+ 
           modelCombox.addElement(bodega);
           
           

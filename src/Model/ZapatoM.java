@@ -5,14 +5,16 @@
  */
 package Model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import oracle.jdbc.OracleCallableStatement;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -66,15 +68,26 @@ public class ZapatoM {
     
   public ArrayList<Zapato> listaZapatos() throws SQLException {
         ArrayList<Zapato> listZapato = new ArrayList<>();
-        Zapato alguien = new Zapato();
-        Statement  stm = null;
+        Zapato z = new Zapato();
+        Categoria cat = new Categoria();
+        Talla t = new Talla();
+        CallableStatement callPro = null; 
+               
         try {
-            stm = conDB.createStatement();
-            ResultSet listResul = stm.executeQuery("");
+            callPro = conDB.prepareCall("{call list_zapatos(?)}");
+            callPro.registerOutParameter(1,OracleTypes.CURSOR);
+            ResultSet listResul = ((OracleCallableStatement)callPro).getCursor(1);
             while (listResul.next()) {
+                z.setIdZapato(listResul.getInt(1));
+                z.setNombre(listResul.getString(2));
+                cat.setIdCategoria(listResul.getInt(3));
+                cat.setCategoria(listResul.getString(4));
                 
                 
-               alguien = new Zapato();
+                
+                
+                
+               z = new Zapato();
             }
            
            
@@ -84,33 +97,14 @@ public class ZapatoM {
         }
         finally{
           conDB.close();
-          if (stm!=null){
-               stm.close();
-          }
+         
         }
         
        
         return listZapato;
     }
 
-    public boolean eliminarEmpleado(Empleado x) {
-        boolean flag = false;
-         PreparedStatement stmP = null;
-        try {
-            conDB.setAutoCommit(false);
-            conDB.setTransactionIsolation(TRANSACTION_READ_UNCOMMITTED);
-            stmP=conDB.prepareStatement("DELETE * FROM empleado WHERE ID_EMPLEADO=?");
-            stmP.setInt(1,x.getIdEmpleado());
-            conDB.commit();
-            conDB.setAutoCommit(true);
-            if (stmP.executeUpdate() > 0) {
 
-                flag = true;
-            }
-        } catch (SQLException e) {
-        }
-        return flag;
-    }
     
   
 

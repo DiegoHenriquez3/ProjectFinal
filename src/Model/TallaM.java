@@ -10,37 +10,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Diego
  */
-public class CategoriaM {
-    
-    private  ConexionDB conexion;
-    private  Connection conDB;
- 
-    public CategoriaM() {
-        
+public class TallaM {
+
+    private ConexionDB conexion;
+    private Connection conDB;
+
+    public TallaM() {
+
         this.conexion = new ConexionDB();
         this.conDB = conexion.construirConexion();
-    
     }
     
-      public ArrayList<Categoria> listaCategoria() {
-        ArrayList<Categoria> listCat = new ArrayList<>();
-        Categoria c = new Categoria();
+      public ArrayList<Talla> listaTallas() {
+        ArrayList<Talla> listTalla = new ArrayList<>();
+        Talla talla = new Talla();
         
         
-        String query ="SELECT id_categoria,categoria FROM categoria order by categoria";
+        String query ="SELECT id_talla,us FROM talla order by us";
         try {
             Statement stm = conDB.createStatement();
             ResultSet listResul = stm.executeQuery(query);
             while (listResul.next()) {
-              c.setIdCategoria(listResul.getInt(1));
-              c.setCategoria(listResul.getString(2));
-              listCat.add(c);
-              c = new Categoria();
+              talla.setIdTalla(listResul.getInt(1));
+              talla.setUs(String.valueOf(listResul.getDouble(2)));
+              listTalla.add(talla);
+              talla= new Talla();
               
             }
             conDB.close();
@@ -48,9 +48,11 @@ public class CategoriaM {
 
         } 
         catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
             return null;
         }
-        return listCat;
+        return listTalla;
     }
     
+
 }

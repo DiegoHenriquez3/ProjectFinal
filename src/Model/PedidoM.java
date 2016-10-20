@@ -8,8 +8,6 @@ package Model;
 import java.sql.Connection;
 import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 /**
  *

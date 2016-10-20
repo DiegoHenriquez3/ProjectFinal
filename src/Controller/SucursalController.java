@@ -5,8 +5,6 @@
  */
 package Controller;
 
-import Model.Bodega;
-import Model.BodegaM;
 import Model.Sucursal;
 import Model.SucursalM;
 import View.IngresarPedido;

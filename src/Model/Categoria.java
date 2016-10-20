@@ -39,6 +39,10 @@ public class Categoria {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+     @Override
+    public String toString() {
+        return categoria;
+    }
 
     public List<Zapato> getZapatoList() {
         return zapatoList;
@@ -48,10 +52,10 @@ public class Categoria {
         this.zapatoList = zapatoList;
     }
     
-
-     @Override
-    public String toString() {
-        return categoria;
-    }
+    
     
 }
+
+    
+    
+

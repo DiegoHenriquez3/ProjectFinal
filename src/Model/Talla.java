@@ -69,4 +69,9 @@ public class Talla {
         this.uk = uk;
     }
 
+    @Override
+    public String toString() {
+        return us;
+    }
+    
 }
