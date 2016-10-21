@@ -47,10 +47,10 @@ public class EmpleadoController {
 
     }
 
-    public void insertarEmpleado(String nombre, String apelldio, String dui, String nit, String dir, String tel, int id_bodega) {
+    public void insertarEmpleado(String nombre, String apellido, String dui, String nit, String dir, String tel, int id_bodega) {
 
         alguien.setNombre(nombre);
-        alguien.setApellido(apelldio);
+        alguien.setApellido(apellido);
         alguien.setDui(dui);
         alguien.setNit(nit);
         alguien.setDireccion(dir);
@@ -58,7 +58,20 @@ public class EmpleadoController {
         bodega.setIdBodega(id_bodega);
         alguien.setIdBodega(bodega);
 
-        empModel.insertarEmpleado(alguien);
+        if(empModel.insertarEmpleado(alguien)){
+            Object[] valores ;
+           
+            valores=new Object[8];
+            valores[0]=nombre;
+            valores[1]=apellido;
+            valores[2]=dui;
+            valores[3]=nit;
+            valores[4]=dir;
+            valores[5]=tel;
+            valores[6]=id_bodega;
+            modelTable.addRow(valores);
+         
+        }
 
         alguien = new Empleado();
         empModel = new EmpleadoM();
@@ -116,7 +129,7 @@ public class EmpleadoController {
     public void llenarJtable(JTable tabla) {
        //Configurar Tabla y modelTable
         tabla.setModel(modelTable);
-        modelTable.addColumn("ID");
+       // modelTable.addColumn("ID");
         modelTable.addColumn("NOMBRE");
         modelTable.addColumn("APELLIDO");
         modelTable.addColumn("DUI");
@@ -139,15 +152,16 @@ public class EmpleadoController {
         for (Empleado emp : listaEmp) {
          
             valores=new Object[8];
-            valores[0]=emp.getIdEmpleado();
-            valores[1]=emp.getNombre();
-            valores[2]=emp.getApellido();
-            valores[3]=emp.getDui();
-            valores[4]=emp.getNit();
-            valores[5]=emp.getDireccion();
-            valores[6]=emp.getTelefono();
-            valores[7]=emp.getIdBodega().getNombre();
+            //valores[0]=emp.getIdEmpleado();
+            valores[0]=emp.getNombre();
+            valores[1]=emp.getApellido();
+            valores[2]=emp.getDui();
+            valores[3]=emp.getNit();
+            valores[4]=emp.getDireccion();
+            valores[5]=emp.getTelefono();
+            valores[6]=emp.getIdBodega().getNombre();
             modelTable.addRow(valores);
+           
             
         }
         

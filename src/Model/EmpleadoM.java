@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class EmpleadoM {
 
     private final ConexionDB conexion;
-    private final Connection conDB;
+    private  Connection conDB;
 
     public EmpleadoM() {
 
@@ -35,9 +35,9 @@ public class EmpleadoM {
         String query = "INSERT INTO EMPLEADO(ID_EMPLEADO,NOMBRE,APELLIDO,DUI,NIT,DIRECCION,TELEFONO,ID_BODEGA)";
         query += " VALUES(empleado_seq.nextVal,?,?,?,?,?,?,?)";
         PreparedStatement stmP = null;
-
+        
         try {
-
+           this.conDB = conexion.construirConexion();
             conDB.setAutoCommit(false);
             stmP = conDB.prepareStatement(query);
             stmP.setString(1, x.getNombre());
@@ -53,7 +53,7 @@ public class EmpleadoM {
             }
             conDB.commit();
             conDB.setAutoCommit(true);
-            
+            conDB.close();
              
 
            
@@ -71,6 +71,7 @@ public class EmpleadoM {
         Bodega bg = new Bodega();
         Statement  stm = null;
         try {
+            this.conDB = conexion.construirConexion();
             stm = conDB.createStatement();
             ResultSet listResul = stm.executeQuery(
                     "SELECT empleado.ID_EMPLEADO,empleado.NOMBRE,empleado.APELLIDO,empleado.DUI,empleado.NIT,empleado.TELEFONO,empleado.DIRECCION,bodega.NOMBRE"
@@ -112,6 +113,7 @@ public class EmpleadoM {
         boolean flag = false;
          PreparedStatement stmP = null;
         try {
+            this.conDB = conexion.construirConexion();
             conDB.setAutoCommit(false);
             conDB.setTransactionIsolation(TRANSACTION_READ_UNCOMMITTED);
             stmP=conDB.prepareStatement("DELETE * FROM empleado WHERE ID_EMPLEADO=?");

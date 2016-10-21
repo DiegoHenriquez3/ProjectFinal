@@ -17,7 +17,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author Diego
+ * @author BlackHat
  */
 public class ZapatoController {
     
@@ -43,11 +43,18 @@ public class ZapatoController {
         for (Zapato zapato : listZapato) {
             
             modelList.addElement(zapato);
-            
-            
+             
         }
-        
-        
+ 
+    }
+    
+    public List<Zapato> listOrderBy(List<Zapato> lista ,String categoria){
+         List<Zapato> orderedList = new ArrayList<>();
+    
+         lista.stream().filter((zapato) -> (zapato.getCategoria().getCategoria().equals(categoria))).forEach((zapato) -> {
+             orderedList.add(zapato);
+        });
+        return orderedList;
     }
     
 }

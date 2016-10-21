@@ -20,7 +20,6 @@ public class Zapato {
     private Categoria categoria; 
     private Marca idMarca;
     private Talla idTalla;
-    private double precios;
     private int cantidad;
     
 
@@ -38,14 +37,6 @@ public class Zapato {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public double getPrecios() {
-        return precios;
-    }
-
-    public void setPrecios(double precios) {
-        this.precios = precios;
     }
 
     

@@ -26,6 +26,7 @@ public class IngresarEmpleados extends javax.swing.JFrame {
      */
     private BodegaController bodegaC;
     private EmpleadoController empController;
+    private int idEmpleado;
     private String nombre;
     private String apellido;
     private String dui;
@@ -145,6 +146,11 @@ public class IngresarEmpleados extends javax.swing.JFrame {
                 "Nombre", "Apellido", "DUI", "NIT", "Direccion", "Telefono"
             }
         ));
+        tbEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbEmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbEmpleados);
 
         btnAdd.setText("Agregar");
@@ -157,6 +163,11 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         btnUpdate.setText("Modificar");
 
         btnDelete.setText("Quitar");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("BODEGA:");
 
@@ -315,7 +326,7 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         idBodega = (Bodega) cbBodega.getSelectedItem();
         int id = idBodega.getIdBodega();
         empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id);
-
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     @SuppressWarnings("static-access")
@@ -335,10 +346,21 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         trsFiltro = new TableRowSorter(tbEmpleados.getModel());
         tbEmpleados.setRowSorter(trsFiltro);
 
-
- 
-
     }//GEN-LAST:event_txtFindKeyTyped
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tbEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseClicked
+        // TODO add your handling code here:
+         btnDelete.setEnabled(true);
+         btnUpdate.setEnabled(true);
+         
+         this.idEmpleado=tbEmpleados.getSelectedRow();
+
+    }//GEN-LAST:event_tbEmpleadosMouseClicked
 
     public JComboBox<String> getCbBodega() {
         return cbBodega;
@@ -402,15 +424,15 @@ public class IngresarEmpleados extends javax.swing.JFrame {
     private TableRowSorter trsFiltro;
 
     public void filtro() {
-        int columnaABuscar = 0;
+        int columnaABuscar =-1;
         if (cbFindBy.getSelectedItem().equals("DUI")) {
-            columnaABuscar = 3;
+            columnaABuscar = 2;
         }
         else if (cbFindBy.getSelectedItem().equals("Nombre")) {
-            columnaABuscar = 1;
+            columnaABuscar = 0;
         }
         else if (cbFindBy.getSelectedItem().equals("Apellido")) {
-            columnaABuscar = 2;
+            columnaABuscar = 1;
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(txtFind.getText(), columnaABuscar));
     }
