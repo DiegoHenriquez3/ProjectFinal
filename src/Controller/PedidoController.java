@@ -38,7 +38,7 @@ public class PedidoController {
             Calendar cal = Calendar.getInstance();
             String sqlDate = fechaString(cal);
             Time sqlTime = new Time(miliSegundos);
-            dateFinal = sqlDate+" "+sqlTime.toString();
+            dateFinal = "TO_DATE("+sqlDate+" "+sqlTime.toString()+",'dd-mm-yyyy hh24:mi:ss')";
             
         } catch (Exception e) {
             
