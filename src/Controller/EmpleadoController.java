@@ -8,16 +8,13 @@ package Controller;
 import Model.Bodega;
 import Model.Empleado;
 import Model.EmpleadoM;
-import View.IngresarEmpleados;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -30,7 +27,6 @@ public class EmpleadoController {
     //private final List<String> mensajes;
     private Bodega bodega;
     private DefaultTableModel modelTable;
-    
 
     public EmpleadoController() {
         alguien = new Empleado();
@@ -58,19 +54,19 @@ public class EmpleadoController {
         bodega.setIdBodega(id_bodega);
         alguien.setIdBodega(bodega);
 
-        if(empModel.insertarEmpleado(alguien)){
-            Object[] valores ;
-           
-            valores=new Object[8];
-            valores[0]=nombre;
-            valores[1]=apellido;
-            valores[2]=dui;
-            valores[3]=nit;
-            valores[4]=dir;
-            valores[5]=tel;
-            valores[6]=id_bodega;
+        if (empModel.insertarEmpleado(alguien)) {
+            Object[] valores;
+
+            valores = new Object[8];
+            valores[0] = nombre;
+            valores[1] = apellido;
+            valores[2] = dui;
+            valores[3] = nit;
+            valores[4] = dir;
+            valores[5] = tel;
+            valores[6] = id_bodega;
             modelTable.addRow(valores);
-         
+
         }
 
         alguien = new Empleado();
@@ -79,15 +75,19 @@ public class EmpleadoController {
 
     }
 
-    public void eliminarEmpleado(int id_empleado) {
+    public void eliminarEmpleado(int id_empleado,String nombre,String apellido) {
+        String msj ="Esta Seguro de eliminar a este empleado: "+nombre+" "+apellido;
+        int yesOrNo = JOptionPane.showConfirmDialog(null,msj, "Atencion", JOptionPane.YES_NO_OPTION);
+        if (yesOrNo == 0) {
+            alguien.setIdEmpleado(id_empleado);
+            if (empModel.eliminarEmpleado(alguien)) {
+                JOptionPane.showMessageDialog(null,"Empleado Eliminado con exito","Atencion",1);
+                
+            } else {
+                  
+            }
 
-        alguien.setIdEmpleado(id_empleado);
-        if (empModel.eliminarEmpleado(alguien)) {
-            JOptionPane.showMessageDialog(null, "Eli", "Eliminado", 1);
-
-        } else {
-
-        }
+        } 
 
     }
 
@@ -103,6 +103,7 @@ public class EmpleadoController {
         alguien.setIdBodega(bodega);
 
         if (empModel.actualizarEmpleado(alguien)) {
+            
 
         } else {
 
@@ -120,16 +121,16 @@ public class EmpleadoController {
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        empModel= null;
+        empModel = null;
 
         return listaEmp;
 
     }
 
     public void llenarJtable(JTable tabla) {
-       //Configurar Tabla y modelTable
+        //Configurar Tabla y modelTable
         tabla.setModel(modelTable);
-       // modelTable.addColumn("ID");
+         modelTable.addColumn("ID"); 
         modelTable.addColumn("NOMBRE");
         modelTable.addColumn("APELLIDO");
         modelTable.addColumn("DUI");
@@ -137,65 +138,30 @@ public class EmpleadoController {
         modelTable.addColumn("DIRECCION");
         modelTable.addColumn("TELEFONO");
         modelTable.addColumn("BODEGA");
-        
-        
         ArrayList<Empleado> listaEmp = new ArrayList<>();
         try {
             listaEmp = empModel.listarEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Object[] valores;
-     
 
         for (Empleado emp : listaEmp) {
-         
-            valores=new Object[8];
-            //valores[0]=emp.getIdEmpleado();
-            valores[0]=emp.getNombre();
-            valores[1]=emp.getApellido();
-            valores[2]=emp.getDui();
-            valores[3]=emp.getNit();
-            valores[4]=emp.getDireccion();
-            valores[5]=emp.getTelefono();
-            valores[6]=emp.getIdBodega().getNombre();
-            modelTable.addRow(valores);
-           
-            
-        }
-        
 
-    }
-    
-    public static void filtroEmpleado(String var){
-        IngresarEmpleados form= new IngresarEmpleados();
-        TableRowSorter tableFil= new TableRowSorter();
-        int columTosearch=0;
-        String itemSelec = "";
-        itemSelec=form.getCbFindBy().getSelectedItem().toString();
-        
-        if (itemSelec.equals("DUI")){
-         columTosearch=3;
+            valores = new Object[8];
+            valores[0]=emp.getIdEmpleado();
+            valores[1] = emp.getNombre();
+            valores[2] = emp.getApellido();
+            valores[3] = emp.getDui();
+            valores[4] = emp.getNit();
+            valores[5] = emp.getDireccion();
+            valores[6] = emp.getTelefono();
+            valores[7] = emp.getIdBodega().getNombre();
+            modelTable.addRow(valores);
+
         }
-        else if (itemSelec.equals("Nombre")){
-         columTosearch=1;
-        }
-        else if (itemSelec.equals("Apellido")){
-         columTosearch=2;
-        }
-        tableFil.setRowFilter(RowFilter.regexFilter(var,columTosearch));
-     
-    }
-    
-    /**
-     *
-     */
-    private TableRowSorter tableFil= new TableRowSorter();
-    public void reTable(IngresarEmpleados form){
-       
-       tableFil = new TableRowSorter(form.getTbEmpleados().getModel());
-       form.getTbEmpleados().setRowSorter(tableFil);
+
     }
 
 }

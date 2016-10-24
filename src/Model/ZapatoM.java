@@ -22,7 +22,7 @@ import oracle.jdbc.OracleTypes;
 public class ZapatoM {
 
     private final ConexionDB conexion;
-    private  Connection conDB;
+    private Connection conDB;
 
     public ZapatoM() {
         conexion = new ConexionDB();
@@ -35,10 +35,10 @@ public class ZapatoM {
         boolean flag = false;
         String query = "";
 
-        query = "INSERT INTO DETALLE_PEDIDO(ID_PEDIDO,CANTIDAD,ID_ZAPATO) VALUES(PEDIDO_SEQ.CURRVAL,?,?,?)";
+        query = "INSERT INTO DETALLE_PEDIDO(ID_PEDIDO,CANTIDAD,ID_ZAPATO) VALUES("+pedido.getIdPedido()+",?,?)";
 
         PreparedStatement stmP = null;
-   
+
         try {
             this.conDB = conexion.construirConexion();
             for (Zapato zapato : pedido.getZapatosList()) {
@@ -47,18 +47,17 @@ public class ZapatoM {
                 stmP = conDB.prepareStatement(query);
                 stmP.setInt(1, zapato.getCantidad());
                 stmP.setInt(2, zapato.getIdZapato());
-                stmP.setInt(3, zapato.getIdTalla().getIdTalla());
 
                 if (stmP.executeUpdate() > 0) {
                     flag = true;
+                    conDB.commit();
+                    conDB.setAutoCommit(true);
                 }
 
             }
-            conDB.commit();
-            conDB.setAutoCommit(true);
 
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorZ", 0);
         }
         return flag;
 
@@ -90,15 +89,15 @@ public class ZapatoM {
                 col.setColor(listResul.getString(8));
                 t.setIdTalla(9);
                 t.setUs(String.valueOf(listResul.getDouble(10)));
-               cat.setIdCategoria(listResul.getInt(11));
-               cat.setCategoria(listResul.getString(12));
-                
+                cat.setIdCategoria(listResul.getInt(12));
+                cat.setCategoria(listResul.getString(13));
+
                 //Se establecen todos los objetos relacionados con el "Zapato"
                 z.setIdTalla(t);
                 z.setColor(col);
                 z.setIdMarca(m);
                 z.setCategoria(cat);
-  
+
                 listZapato.add(z);
                 //Se hace un RESET de los objetos utilizados
                 z = new Zapato();
@@ -106,7 +105,7 @@ public class ZapatoM {
                 col = new Color();
                 t = new Talla();
                 m = new Marca();
-                 
+
             }
 
         } catch (SQLException e) {

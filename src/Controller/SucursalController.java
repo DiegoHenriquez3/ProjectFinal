@@ -19,41 +19,36 @@ import javax.swing.JOptionPane;
  * @author Diego
  */
 public class SucursalController {
-    
-     
-    private DefaultComboBoxModel modelCombox= new DefaultComboBoxModel(); 
+
+    private DefaultComboBoxModel modelCombox;
     private SucursalM scModel;
     private IngresarPedido form;
-    
+
     public SucursalController() {
-        
-        scModel = new SucursalM();
+        modelCombox= new DefaultComboBoxModel();
+
     }
-    
-    public void llenarSucursal(JComboBox combo){
-    
-       List<Sucursal> listSucursal = new ArrayList<>() ;
-       
-       listSucursal= scModel.listaSucursal();
-       
-       combo.setModel(modelCombox);
+
+    public void llenarSucursal(JComboBox combo) {
+        scModel = new SucursalM();
+        List<Sucursal> listSucursal = new ArrayList<>();
+
+        listSucursal = scModel.listaSucursal();
+
+        combo.setModel(modelCombox);
         try {
             for (Sucursal s : listSucursal) {
-            
-         
-          modelCombox.addElement(s);
-          
+
+                modelCombox.addElement(s);
 
             }
-            
-          // formEmpInsert.getCbBodega().setSelectedIndex(0);
-            
-        } 
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(form,e.getMessage(),"Error",0);
-            
+
+            // formEmpInsert.getCbBodega().setSelectedIndex(0);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(form, e.getMessage(), "Error", 0);
+
         }
-        
+
     }
-    
+
 }

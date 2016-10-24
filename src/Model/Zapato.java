@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Model;
+
 import java.util.List;
 
 /**
@@ -12,16 +13,14 @@ import java.util.List;
  */
 public class Zapato {
 
- 
     private int idZapato;
     private String nombre;
     private double precio;
     private Color color;
-    private Categoria categoria; 
+    private Categoria categoria;
     private Marca idMarca;
     private Talla idTalla;
     private int cantidad;
-    
 
     public int getIdZapato() {
         return idZapato;
@@ -39,7 +38,6 @@ public class Zapato {
         this.nombre = nombre;
     }
 
-    
     public double getPrecio() {
         return precio;
     }
@@ -63,8 +61,7 @@ public class Zapato {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
-   
+
     public Marca getIdMarca() {
         return idMarca;
     }
@@ -80,7 +77,6 @@ public class Zapato {
     public void setIdTalla(Talla idTalla) {
         this.idTalla = idTalla;
     }
- 
 
     public int getCantidad() {
         return cantidad;
@@ -89,15 +85,13 @@ public class Zapato {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
-    
+
     @Override
-    public String toString(){
-     
-        return nombre;
-    
+    public String toString() {
+        String detalle = "";
+        detalle = nombre + " Talla:" +idTalla+"  $"+precio;    
+        return detalle;
+
     }
-    
-    
-    
+
 }

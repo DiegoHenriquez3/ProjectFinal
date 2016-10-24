@@ -130,12 +130,13 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
        
         if (!txtUser.getText().equals("") || txtPass.getPassword()!=null){
-           
-         
+              usuario= txtUser.getText();
+              pass=txtPass.getText();
+              userC.getLogin(usuario, pass);
         
         }
         else{
-            
+             
         }
         
         

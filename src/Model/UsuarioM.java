@@ -10,8 +10,7 @@ import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import oracle.jdbc.OraclePreparedStatement;
-import oracle.jdbc.OracleResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,8 +52,8 @@ public class UsuarioM {
     
    public Usuario getUsuario(Usuario user) {
 
-
-        String sqlQuery = "SELECT id_user,usuario,contra,empleado.NOMBRE"
+        
+        String sqlQuery = "SELECT id_user,usuario,contra,empleado.id_empleado,empleado.NOMBRE,empleado.apellido"
                 + " from usuario inner join empleado on usuario.ID_EMPLEADO=empleado.ID_EMPLEADO"
                 + " WHERE contra='" + user.getContra() + "' AND usuario='" + user.getUsuario() + "'";
         Usuario userInfo = new Usuario();
@@ -71,9 +70,11 @@ public class UsuarioM {
             while (lista.next()) {
                 userInfo.setIdUser(lista.getInt(1));
                 userInfo.setUsuario(lista.getString(2));
-                userEm.setNombre(lista.getString(4));
+                userEm.setIdEmpleado(lista.getInt(4));
+                userEm.setNombre(lista.getString(5));
+                userEm.setApellido(lista.getString(6));
                 userInfo.setIdEmpleado(userEm);
-                System.out.println(lista.getString(4));
+                
                
                return userInfo;
                 
@@ -83,7 +84,7 @@ public class UsuarioM {
             stm.close();
 
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null,e.getMessage(),"Error",0);
         }
 
         return null;

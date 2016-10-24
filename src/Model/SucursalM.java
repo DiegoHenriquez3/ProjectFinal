@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class SucursalM {
     
-        private  ConexionDB conexion;
+    private  ConexionDB conexion;
     private  Connection conDB;
  
     public SucursalM() {
@@ -32,7 +32,6 @@ public class SucursalM {
         ArrayList<Sucursal> listSucursal = new ArrayList<>();
         Sucursal sucursal = new Sucursal();
         Municipio m= new Municipio();
-        
         String query ="SELECT id_sucursal,nombre,municipio FROM sucursal INNER JOIN municipio on sucursal.id_municipio=municipio.id_municipio";
         try {
             Statement stm = conDB.createStatement();
@@ -45,7 +44,6 @@ public class SucursalM {
               listSucursal.add(sucursal);
               sucursal= new Sucursal();
               m= new Municipio();
-              
             }
             conDB.close();
             stm.close();

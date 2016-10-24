@@ -26,7 +26,6 @@ public class IngresarEmpleados extends javax.swing.JFrame {
      */
     private BodegaController bodegaC;
     private EmpleadoController empController;
-    private int idEmpleado;
     private String nombre;
     private String apellido;
     private String dui;
@@ -150,6 +149,12 @@ public class IngresarEmpleados extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbEmpleadosMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tbEmpleadosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbEmpleadosMousePressed(evt);
+            }
         });
         jScrollPane1.setViewportView(tbEmpleados);
 
@@ -161,6 +166,11 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         });
 
         btnUpdate.setText("Modificar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Quitar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +186,11 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         jLabel9.setText("BUSACAR POR:");
 
         cbFindBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DUI", "Nombre", "Apellido" }));
+        cbFindBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFindByActionPerformed(evt);
+            }
+        });
 
         txtFind.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -225,14 +240,11 @@ public class IngresarEmpleados extends javax.swing.JFrame {
                                 .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(262, 262, 262))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(295, 295, 295))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,7 +253,10 @@ public class IngresarEmpleados extends javax.swing.JFrame {
                                 .addGap(135, 135, 135)
                                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(139, 139, 139)))
-                        .addGap(41, 41, 41))))
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(269, 269, 269))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +341,7 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         idBodega = (Bodega) cbBodega.getSelectedItem();
         int id = idBodega.getIdBodega();
         empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id);
-        
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     @SuppressWarnings("static-access")
@@ -350,17 +365,49 @@ public class IngresarEmpleados extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-       
+        if (tbEmpleados.getRowCount() > 0) {
+            Integer idEmpleado = (Integer) tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0);
+            String name = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 1).toString();
+            String lastName = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 2).toString();
+            empController.eliminarEmpleado(idEmpleado, name, lastName);
+        }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tbEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseClicked
         // TODO add your handling code here:
-         btnDelete.setEnabled(true);
-         btnUpdate.setEnabled(true);
-         
-         this.idEmpleado=tbEmpleados.getSelectedRow();
+        if (tbEmpleados.getSelectedRow() >= 0) {
+            btnDelete.setEnabled(true);
+            btnUpdate.setEnabled(true);
+        }
 
     }//GEN-LAST:event_tbEmpleadosMouseClicked
+
+    private void cbFindByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFindByActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFindByActionPerformed
+
+    private void tbEmpleadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseExited
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tbEmpleadosMouseExited
+
+    private void tbEmpleadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbEmpleadosMousePressed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        String[] info = new String[7];
+        if (tbEmpleados.getRowCount() > 0) {
+            info[0] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0).toString();
+            info[1] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 1).toString();
+            info[2] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 2).toString();
+            info[3] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 3).toString();
+            info[4] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 4).toString();
+            info[5] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 5).toString();
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     public JComboBox<String> getCbBodega() {
         return cbBodega;
@@ -423,16 +470,14 @@ public class IngresarEmpleados extends javax.swing.JFrame {
     }
     private TableRowSorter trsFiltro;
 
-    public void filtro() {
-        int columnaABuscar =-1;
+    private void filtro() {
+        int columnaABuscar = -1;
         if (cbFindBy.getSelectedItem().equals("DUI")) {
-            columnaABuscar = 2;
-        }
-        else if (cbFindBy.getSelectedItem().equals("Nombre")) {
-            columnaABuscar = 0;
-        }
-        else if (cbFindBy.getSelectedItem().equals("Apellido")) {
+            columnaABuscar = 3;
+        } else if (cbFindBy.getSelectedItem().equals("Nombre")) {
             columnaABuscar = 1;
+        } else if (cbFindBy.getSelectedItem().equals("Apellido")) {
+            columnaABuscar = 2;
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(txtFind.getText(), columnaABuscar));
     }

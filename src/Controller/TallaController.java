@@ -20,9 +20,14 @@ import javax.swing.JOptionPane;
  */
 public class TallaController {
 
-    private DefaultComboBoxModel modelCombox = new DefaultComboBoxModel();
+    private DefaultComboBoxModel modelCombox ;
     private TallaM tallaModel;
 
+    public TallaController() {
+        modelCombox = new DefaultComboBoxModel();
+    }
+     
+    
     public void llenarTallas(JComboBox combo) {
 
         List<Talla> listTalla = new ArrayList<>();

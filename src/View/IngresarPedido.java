@@ -8,10 +8,13 @@ package View;
 import Controller.BodegaController;
 import Controller.CategoriaController;
 import Controller.EmpleadoController;
+import Controller.PedidoController;
 import Controller.SucursalController;
 import Controller.TallaController;
 import Controller.ZapatoController;
+import Model.Usuario;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,27 +23,37 @@ import javax.swing.JComboBox;
 public class IngresarPedido extends javax.swing.JFrame {
 
     private BodegaController bodegaC;
-    private EmpleadoController empController;
     private ZapatoController zController;
     private SucursalController scController;
     private CategoriaController catController;
     private TallaController tallaController;
-
+    private PedidoController pedidoController;
+    private Usuario user;
     /**
      * Creates new form IngresarPedido
      */
+    public IngresarPedido(Usuario user) {
+        initComponents();
+        this.user = user ;
+        scController = new SucursalController();
+        scController.llenarSucursal(cbSucursal);
+        bodegaC = new BodegaController();
+        bodegaC.llenarBodega(cbBodega);
+        catController = new CategoriaController();
+        catController.llenarCategoria(cbCategoria);
+        tallaController = new TallaController();
+        tallaController.llenarTallas(cbTallas);
+        zController = new ZapatoController();
+        zController.llenarList(jList);
+        zController.comboChange(cbCategoria);
+        zController.llenarTabla(jTbZapato);
+        pedidoController= new PedidoController();
+        
+    }
+
     public IngresarPedido() {
         initComponents();
-        scController= new SucursalController();
-        scController.llenarSucursal(cbSucursal);
-        bodegaC= new BodegaController();
-        bodegaC.llenarBodega(cbBodega);
-        catController= new CategoriaController();
-        catController.llenarCategoria(cbCategoria);
-        tallaController= new TallaController();
-        tallaController.llenarTallas(cbTallas);
-        zController =new ZapatoController();
-        zController.llenarList(jList);
+
     }
 
     /**
@@ -64,7 +77,7 @@ public class IngresarPedido extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTbZapato = new javax.swing.JTable();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -108,7 +121,7 @@ public class IngresarPedido extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jList);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTbZapato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -119,7 +132,7 @@ public class IngresarPedido extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(jTbZapato);
 
         btnSave.setText("Guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +157,11 @@ public class IngresarPedido extends javax.swing.JFrame {
         jLabel7.setText("Total:");
 
         cbTallas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTallas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTallasActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Tallas");
 
@@ -199,21 +217,20 @@ public class IngresarPedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24))
-                            .addComponent(cbBodega, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cbSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbTallas)
                             .addComponent(cbCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
@@ -246,15 +263,31 @@ public class IngresarPedido extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if(jTbZapato.getRowCount()>0){
+        pedidoController.crearPedido(this,zController.getListPedido());
+        pedidoController.realizarPedido();
+        }else{
+        JOptionPane.showMessageDialog(this,"Por favor agrege zapatos al pedido","Error",0);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_cbCategoriaActionPerformed
+
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        int cantidad=Integer.valueOf(txtCantidad.getText());
+        int index=jList.getSelectedIndex();
+        zController.addListZapato(index,cantidad);
+      
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void cbTallasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTallasActionPerformed
+        // TODO add your handling code here    
+    }//GEN-LAST:event_cbTallasActionPerformed
 
     public JComboBox<String> getCbBodega() {
         return cbBodega;
@@ -279,6 +312,17 @@ public class IngresarPedido extends javax.swing.JFrame {
     public void setjComboBox1(JComboBox<String> jComboBox1) {
         this.cbCategoria = jComboBox1;
     }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+    
+    
+    
 
     /**
      * @param args the command line arguments
@@ -335,7 +379,7 @@ public class IngresarPedido extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTbZapato;
     private javax.swing.JTree jTree1;
     private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables

@@ -5,7 +5,8 @@
  */
 package View;
 
-import javax.swing.ImageIcon;
+import Model.Usuario;
+import javax.swing.JButton;
 
 /**
  *
@@ -13,17 +14,18 @@ import javax.swing.ImageIcon;
  */
 public class Board extends javax.swing.JFrame {
 
+    private Usuario user;
     /**
      * Creates new form Board
      */
- 
+    public Board(Usuario user) {
+        initComponents();
+        this.user= user;
+    }
+
     public Board() {
         initComponents();
-        
-      // iconoEmpleado=new ImageIcon(getClass().getResource("bodega.png"));
-      // btnEmpleado.setIcon(iconoEmpleado);
-       //iconoBodega=new ImageIcon(getClass().getResource("bodega.png"));
-       //btnInventario.setIcon(iconoBodega);
+
     }
 
     /**
@@ -47,6 +49,11 @@ public class Board extends javax.swing.JFrame {
         setResizable(false);
 
         btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/ubicacion1.png"))); // NOI18N
+        btnPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidoActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("jButton1");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -113,13 +120,31 @@ public class Board extends javax.swing.JFrame {
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
+        // TODO add your handling code here:
+         IngresarPedido formPedido = new IngresarPedido(user);
+         formPedido.setVisible(true);
+         this.setVisible(false);
+    }//GEN-LAST:event_btnPedidoActionPerformed
+
+    public JButton getBtnPedido() {
+        return btnPedido;
+    }
+
+    public void setBtnPedido(JButton btnPedido) {
+        this.btnPedido = btnPedido;
+    }
+    
+
+    
+    
     /**
      * @param args the command line arguments
      */

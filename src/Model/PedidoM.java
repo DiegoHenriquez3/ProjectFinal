@@ -6,8 +6,10 @@
 package Model;
 
 import java.sql.Connection;
-import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,25 +30,36 @@ public class PedidoM {
         String query = "";
         PreparedStatement stmP = null;
         query = "insert into pedido(PEDIDO.ID_PEDIDO,PEDIDO.ID_SUCURSAL,PEDIDO.ID_BODEGA,PEDIDO.ID_EMPLEADO,PEDIDO.ESTADO,PEDIDO.FECHA_PEDIDO) "
-                + "values(pedido_seq.NEXTVAL,?,?,?,?)";
+                + "values(pedido_seq.NEXTVAL,?,?,?,?,"+xPedido.getFechaPedido()+")";
         try {
             conDB.setAutoCommit(false);
-            conDB.setTransactionIsolation(TRANSACTION_READ_UNCOMMITTED);
             stmP = conDB.prepareStatement(query);
             stmP.setInt(1, xPedido.getIdSucursal().getIdSucursal());
             stmP.setInt(2, xPedido.getIdBodega().getIdBodega());
-            stmP.setInt(2, xPedido.getIdEmpleado().getIdEmpleado());
+            stmP.setInt(3, xPedido.getIdEmpleado().getIdEmpleado());
             stmP.setInt(4, xPedido.getEstado());
-            stmP.setString(5, xPedido.getFechaPedido());
+            //stmP.setString(5, xPedido.getFechaPedido());
+            
+            if (stmP.executeUpdate() > 0) {
 
+                flag = true;
+            }
             conDB.commit();
             conDB.setAutoCommit(true);
+            
+            query = "select pedido_seq.CURRVAL from dual";
+            Statement stm = conDB.createStatement();
+            ResultSet listResul = stm.executeQuery(query);
+            while (listResul.next()) {
+               xPedido.setIdPedido(listResul.getInt(1));
+            }
+            
             conDB.close();
+            stm.close();
             stmP.close();
             
-
         } catch (Exception ex) {
-            
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"ErrorPedidoM",0);
         }
 
         return flag;
