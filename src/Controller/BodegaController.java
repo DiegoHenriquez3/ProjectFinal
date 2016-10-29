@@ -56,8 +56,7 @@ public class BodegaController {
             JOptionPane.showMessageDialog(formEmpInsert,e.getMessage(),"Error",0);
             
         }
-        
-        //PruebaEditRemote
+
         
     
     

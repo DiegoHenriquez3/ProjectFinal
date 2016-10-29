@@ -11,6 +11,7 @@ import Model.Bodega;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
@@ -340,7 +341,8 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         telefono = txtTelefono.getText();
         idBodega = (Bodega) cbBodega.getSelectedItem();
         int id = idBodega.getIdBodega();
-        empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id);
+        String nombg= cbBodega.getSelectedItem().toString();
+        empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id,nombg);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -366,20 +368,26 @@ public class IngresarEmpleados extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         if (tbEmpleados.getRowCount() > 0) {
-            Integer idEmpleado = (Integer) tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0);
-            String name = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 1).toString();
-            String lastName = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 2).toString();
-            empController.eliminarEmpleado(idEmpleado, name, lastName);
+            String idui = (String) tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 2);
+            String name = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0).toString();
+            String lastName = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 1).toString();
+            
+            empController.eliminarEmpleado(idui, name, lastName);
+            
         }
+        else{
+            JOptionPane.showMessageDialog(this,"No ha seleccionado ningun empleado","Alerta",2);
+        }
+            
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tbEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseClicked
         // TODO add your handling code here:
-        if (tbEmpleados.getSelectedRow() >= 0) {
+     
             btnDelete.setEnabled(true);
             btnUpdate.setEnabled(true);
-        }
+       
 
     }//GEN-LAST:event_tbEmpleadosMouseClicked
 
@@ -406,6 +414,8 @@ public class IngresarEmpleados extends javax.swing.JFrame {
             info[3] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 3).toString();
             info[4] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 4).toString();
             info[5] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 5).toString();
+            UpdateEmpleado form = new UpdateEmpleado(info);
+            form.setVisible(true);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 

@@ -43,7 +43,7 @@ public class EmpleadoController {
 
     }
 
-    public void insertarEmpleado(String nombre, String apellido, String dui, String nit, String dir, String tel, int id_bodega) {
+    public void insertarEmpleado(String nombre, String apellido, String dui, String nit, String dir, String tel, int id_bodega, String nombg) {
 
         alguien.setNombre(nombre);
         alguien.setApellido(apellido);
@@ -64,7 +64,7 @@ public class EmpleadoController {
             valores[3] = nit;
             valores[4] = dir;
             valores[5] = tel;
-            valores[6] = id_bodega;
+            valores[6] = nombg;
             modelTable.addRow(valores);
 
         }
@@ -75,19 +75,25 @@ public class EmpleadoController {
 
     }
 
-    public void eliminarEmpleado(int id_empleado,String nombre,String apellido) {
-        String msj ="Esta Seguro de eliminar a este empleado: "+nombre+" "+apellido;
-        int yesOrNo = JOptionPane.showConfirmDialog(null,msj, "Atencion", JOptionPane.YES_NO_OPTION);
+    public void eliminarEmpleado(String dui, String nombre, String apellido) {
+        String msj = "Esta Seguro de eliminar a este empleado: " + nombre + " " + apellido;
+        int yesOrNo = JOptionPane.showConfirmDialog(null, msj, "Atencion", JOptionPane.YES_NO_OPTION);
         if (yesOrNo == 0) {
-            alguien.setIdEmpleado(id_empleado);
+            alguien.setDui(dui);
             if (empModel.eliminarEmpleado(alguien)) {
-                JOptionPane.showMessageDialog(null,"Empleado Eliminado con exito","Atencion",1);
                 
+                JOptionPane.showMessageDialog(null, "Empleado Eliminado con exito", "Atencion", 1);
+
             } else {
-                  
+                JOptionPane.showMessageDialog(null, "Algo salio mal", "Atencion", 0);
             }
 
-        } 
+        }
+
+    }
+
+    public void prueba() {
+        JOptionPane.showMessageDialog(null, "hola", "Nose", 0);
 
     }
 
@@ -103,7 +109,6 @@ public class EmpleadoController {
         alguien.setIdBodega(bodega);
 
         if (empModel.actualizarEmpleado(alguien)) {
-            
 
         } else {
 
@@ -130,7 +135,6 @@ public class EmpleadoController {
     public void llenarJtable(JTable tabla) {
         //Configurar Tabla y modelTable
         tabla.setModel(modelTable);
-         modelTable.addColumn("ID"); 
         modelTable.addColumn("NOMBRE");
         modelTable.addColumn("APELLIDO");
         modelTable.addColumn("DUI");
@@ -150,14 +154,13 @@ public class EmpleadoController {
         for (Empleado emp : listaEmp) {
 
             valores = new Object[8];
-            valores[0]=emp.getIdEmpleado();
-            valores[1] = emp.getNombre();
-            valores[2] = emp.getApellido();
-            valores[3] = emp.getDui();
-            valores[4] = emp.getNit();
-            valores[5] = emp.getDireccion();
-            valores[6] = emp.getTelefono();
-            valores[7] = emp.getIdBodega().getNombre();
+            valores[0] = emp.getNombre();
+            valores[1] = emp.getApellido();
+            valores[2] = emp.getDui();
+            valores[3] = emp.getNit();
+            valores[4] = emp.getDireccion();
+            valores[5] = emp.getTelefono();
+            valores[6] = emp.getIdBodega().getNombre();
             modelTable.addRow(valores);
 
         }

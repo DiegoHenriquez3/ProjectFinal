@@ -106,8 +106,8 @@ public class EmpleadoM {
         try {
             this.conDB = conexion.construirConexion();
             conDB.setAutoCommit(false);
-            stmP = conDB.prepareStatement("DELETE  FROM empleado WHERE ID_EMPLEADO=?");
-            stmP.setInt(1, x.getIdEmpleado());
+            stmP = conDB.prepareStatement("DELETE  FROM empleado WHERE dui=?");
+            stmP.setString(1, x.getDui());
 
             if (stmP.executeUpdate() > 0) {
 
@@ -125,7 +125,8 @@ public class EmpleadoM {
     public boolean actualizarEmpleado(Empleado x) {
         PreparedStatement stmP = null;
         boolean flag = false;
-        String query = "UPDATE empleado SET nombre=?,apellido=?,dui=?,nit=?,telefono=?,direccion=?,id_bodega=?";
+        String query = "UPDATE empleado SET nombre=?,apellido=?,dui=?,nit=?,telefono=?,direccion=?,id_bodega=? "
+                + "WHERE DUI=?";
         try {
             conDB.setAutoCommit(false);
             stmP = conDB.prepareStatement(query);
@@ -136,6 +137,7 @@ public class EmpleadoM {
             stmP.setString(5, x.getDireccion());
             stmP.setString(6, x.getTelefono());
             stmP.setInt(7, x.getIdBodega().getIdBodega());
+            stmP.setString(8,x.getDui());
 
             conDB.commit();
             conDB.setAutoCommit(true);

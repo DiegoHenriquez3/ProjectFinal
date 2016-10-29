@@ -10,6 +10,7 @@ import Model.Talla;
 import Model.TallaM;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -25,6 +26,10 @@ public class TallaController {
 
     public TallaController() {
         modelCombox = new DefaultComboBoxModel();
+    }
+
+    public TallaController(EntityManagerFactory entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
      
     

@@ -7,7 +7,6 @@ package View;
 
 import Controller.BodegaController;
 import Controller.CategoriaController;
-import Controller.EmpleadoController;
 import Controller.PedidoController;
 import Controller.SucursalController;
 import Controller.TallaController;

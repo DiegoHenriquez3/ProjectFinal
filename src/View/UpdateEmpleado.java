@@ -6,6 +6,9 @@
 package View;
 
 import Controller.BodegaController;
+import Controller.EmpleadoController;
+import Model.Bodega;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,14 +17,26 @@ import Controller.BodegaController;
 public class UpdateEmpleado extends javax.swing.JFrame {
 
     private BodegaController bodegaC;
+    private EmpleadoController empC;
 
     /**
      * Creates new form UpdateEmpleado
      */
     public UpdateEmpleado() {
         initComponents();
+    }
+
+    public UpdateEmpleado(String[] info) {
+        initComponents();
+        empC = new EmpleadoController();
         bodegaC = new BodegaController();
         bodegaC.llenarBodega(cbBodega);
+        txtNombre.setText(info[0]);
+        txtApellido.setText(info[1]);
+        txtDui.setText(info[2]);
+        txtNit.setText(info[3]);
+        txtDir.setText(info[4]);
+        txtTelefono.setText(info[5]);
 
     }
 
@@ -36,7 +51,7 @@ public class UpdateEmpleado extends javax.swing.JFrame {
 
         txtApellido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         txtDui = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNit = new javax.swing.JTextField();
@@ -61,10 +76,10 @@ public class UpdateEmpleado extends javax.swing.JFrame {
 
         jLabel3.setText("DUI:");
 
-        btnAdd.setText("Modificar");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Modificar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -114,7 +129,7 @@ public class UpdateEmpleado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(178, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(178, 178, 178))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +204,7 @@ public class UpdateEmpleado extends javax.swing.JFrame {
                     .addComponent(cbBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
 
@@ -200,18 +215,24 @@ public class UpdateEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
-        /* nombre = txtNombre.getText();
-        apellido = txtApellido.getText();
-        dui = txtDui.getText();
-        nit = txtNit.getText();
-        direccion = txtDir.getText();
-        telefono = txtTelefono.getText();
-        idBodega = (Bodega) cbBodega.getSelectedItem();
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+         
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String dui = txtDui.getText();
+        String nit = txtNit.getText();
+        String direccion = txtDir.getText();
+        String telefono = txtTelefono.getText();
+        Bodega idBodega = (Bodega) cbBodega.getSelectedItem();
         int id = idBodega.getIdBodega();
-        empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id);*/
-    }//GEN-LAST:event_btnAddActionPerformed
+       
+        empC.actualizarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id);
+        
+     
+          // JOptionPane.showMessageDialog(this,e.getCause(), "", 0);
+        
+       
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtDuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuiActionPerformed
         // TODO add your handling code here:
@@ -265,7 +286,7 @@ public class UpdateEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox cbBodega;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
