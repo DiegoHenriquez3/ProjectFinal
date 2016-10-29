@@ -220,6 +220,7 @@ public class IngresarZapato extends javax.swing.JFrame {
         zapato.setIdMarca((Marca)cbMarca.getSelectedItem());
         BigDecimal valor = (BigDecimal.valueOf(63.56));
         zapato.setZapato("Rubi");
+        //prueba
         zapato.setPrecio(valor);
         zapato.setIdTalla((Talla)cbTalla.getSelectedItem());
         
