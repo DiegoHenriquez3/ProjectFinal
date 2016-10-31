@@ -32,6 +32,10 @@ public class DepartamentoJpaController implements Serializable {
     }
     private EntityManagerFactory emf = null;
 
+    DepartamentoJpaController() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
@@ -206,5 +210,7 @@ public class DepartamentoJpaController implements Serializable {
             em.close();
         }
     }
+    
+    
     
 }

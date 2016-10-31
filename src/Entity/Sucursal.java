@@ -12,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +35,8 @@ public class Sucursal implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @GeneratedValue(strategy =GenerationType.SEQUENCE,generator = "SUCURSAL_SEQ")
+    @SequenceGenerator(name="SUCURSAL_SEQ",sequenceName = "SUCURSAL_SEQ")
     @Id
     @Basic(optional = false)
     @Column(name = "ID_SUCURSAL")

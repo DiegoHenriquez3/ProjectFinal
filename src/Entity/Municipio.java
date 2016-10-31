@@ -121,7 +121,7 @@ public class Municipio implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Municipio[ idMunicipio=" + idMunicipio + " ]";
+        return municipio;
     }
     
 }

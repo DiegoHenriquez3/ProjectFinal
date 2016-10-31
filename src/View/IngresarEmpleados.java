@@ -7,6 +7,7 @@ package View;
 
 import Controller.BodegaController;
 import Controller.EmpleadoController;
+import Controller.Validation;
 import Model.Bodega;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -34,6 +35,7 @@ public class IngresarEmpleados extends javax.swing.JFrame {
     private String direccion;
     private String telefono;
     private Bodega idBodega;
+    private Validation validation;
 
     public IngresarEmpleados() {
         initComponents();
@@ -44,6 +46,12 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         empController.llenarJtable(tbEmpleados);
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
+
+        //Validaciones 
+        validation = new Validation();
+        validation.isPhoneNumber(txtTelefono);
+        validation.isNit(txtNit);
+        validation.isDui(txtDui);
 
     }
 
@@ -341,8 +349,8 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         telefono = txtTelefono.getText();
         idBodega = (Bodega) cbBodega.getSelectedItem();
         int id = idBodega.getIdBodega();
-        String nombg= cbBodega.getSelectedItem().toString();
-        empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id,nombg);
+        String nombg = cbBodega.getSelectedItem().toString();
+        empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id, nombg);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -371,23 +379,22 @@ public class IngresarEmpleados extends javax.swing.JFrame {
             String idui = (String) tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 2);
             String name = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0).toString();
             String lastName = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 1).toString();
-            
+
             empController.eliminarEmpleado(idui, name, lastName);
-            
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun empleado", "Alerta", 2);
         }
-        else{
-            JOptionPane.showMessageDialog(this,"No ha seleccionado ningun empleado","Alerta",2);
-        }
-            
+
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tbEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseClicked
         // TODO add your handling code here:
-     
-            btnDelete.setEnabled(true);
-            btnUpdate.setEnabled(true);
-       
+
+        btnDelete.setEnabled(true);
+        btnUpdate.setEnabled(true);
+
 
     }//GEN-LAST:event_tbEmpleadosMouseClicked
 

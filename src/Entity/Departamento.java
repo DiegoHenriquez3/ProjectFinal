@@ -98,7 +98,19 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Departamento[ idDepartamento=" + idDepartamento + " ]";
+        return departamento;
     }
+    
+    public int compareTo(Model.Departamento p){
+        
+        if(departamento.compareTo( p.getDepartamento())<0){
+            return -1;
+        }
+        else if (departamento.compareTo( p.getDepartamento())>0){
+         return 1;
+        }
+       return 0;
+    }
+
     
 }

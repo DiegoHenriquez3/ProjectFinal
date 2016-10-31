@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Diego
  */
-public class Departamento {
+public class Departamento  implements Comparable<Departamento>{
 
     private int idDepartamento;
     private String departamento;
@@ -39,6 +39,16 @@ public class Departamento {
 
     public void setMunicipioList(List<Municipio> municipioList) {
         this.municipioList = municipioList;
+       
+    }
+    
+    @Override
+    public int compareTo(Departamento p){
+        
+       /* if(departamento p.getDepartamento()){
+            
+        }*/
+       return -1;
     }
 
 }
