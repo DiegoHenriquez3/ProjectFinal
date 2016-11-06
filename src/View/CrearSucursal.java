@@ -5,7 +5,15 @@
  */
 package View;
 
+import Controller.Validation;
 import ControllerJPA.ControllerMainZ;
+import ControllerJPA.SucursalJpaController;
+import Entity.EntityMain;
+import Entity.Municipio;
+import Entity.Sucursal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +25,21 @@ public class CrearSucursal extends javax.swing.JFrame {
      * Creates new form IngresarSucursal
      */
     private ControllerJPA.ControllerMainZ controllerMain;
+    private Validation validar;
+    private Sucursal sucursal;
+    private SucursalJpaController sucursalC;
 
     public CrearSucursal() {
         initComponents();
         controllerMain = new ControllerMainZ();
-        controllerMain.linkCombo(cbMunic,cbDepart);
+        controllerMain.linkCombo(cbMunic, cbDepart);
         controllerMain.linkTable(tbSucursales);
-       
+        validar = new Validation();
+        validar.isPhoneNumber(txtTelef);
+        validar.isName(txtNombre);
+        validar.justText(txtDir);
+        sucursalC = new SucursalJpaController(EntityMain.getEntity());
+
     }
 
     /**
@@ -165,6 +181,35 @@ public class CrearSucursal extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        if (!txtNombre.getText().equals("") && !txtTelef.getText().equals("") && !txtDir.getText().equals("")) {
+            if(cbMunic.getSelectedIndex()>-1){
+            try {
+                sucursal = new Sucursal();
+                String nombre = txtNombre.getText();
+                String telefono = txtTelef.getText();
+                String dir = txtDir.getText();
+                sucursal.setNombre(nombre);
+                sucursal.setTelefono(telefono);
+                sucursal.setDireccion(dir);
+                sucursal.setIdMunicipio((Municipio) cbMunic.getSelectedItem());
+                sucursalC.create(sucursal);
+                JOptionPane.showMessageDialog(this,"TRANSACION REALIZADA CON EXITO","SUCURSAL",1);
+                txtDir.setText("");
+                txtNombre.setText("");
+                txtTelef.setText("");
+                
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this,ex.getMessage(),"SUCURSAL",0);
+            }
+           }
+            else{
+                 JOptionPane.showMessageDialog(this,"SELECCIONE EL MUNICIPIO","SUCURSAL",0);
+            }
+        }
+        else{
+           JOptionPane.showMessageDialog(this,"POR FAVOR INGRESE LOS CAMPOS NECESARIOS","SUCURSAL",0);
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**

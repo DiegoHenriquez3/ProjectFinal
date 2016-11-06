@@ -32,8 +32,8 @@ public class Zapato implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @GeneratedValue(strategy =GenerationType.SEQUENCE,generator = "ZAPATO_SEQ")
-    @SequenceGenerator(name="ZAPATO_SEQ",sequenceName = "ZAPATO_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ZAPATO_SEQ")
+    @SequenceGenerator(name = "ZAPATO_SEQ", sequenceName = "ZAPATO_SEQ")
     @Id
     @Basic(optional = false)
     @Column(name = "ID_ZAPATO")
@@ -131,5 +131,5 @@ public class Zapato implements Serializable {
     public String toString() {
         return zapato;
     }
-    
+
 }

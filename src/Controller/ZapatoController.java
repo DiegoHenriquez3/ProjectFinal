@@ -5,8 +5,10 @@
  */
 package Controller;
 
-import Model.Zapato;
+import Model.Bodega;
 import Model.ZapatoM;
+import View.ZapatoCategoria;
+import com.sun.prism.j2d.J2DPipeline;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,27 +30,21 @@ public class ZapatoController {
 
     private DefaultListModel modelList;
     private ZapatoM zapatoM;
-    private List<Zapato> listZapato;
-    private List<Zapato> listPedido;
-    private List<Zapato> listOrder;
+    private List<Model.Zapato> listZapato;
+    private List<Model.Zapato> listPedido;
     private DefaultTableModel modelTable;
 
     public ZapatoController() {
         zapatoM = new ZapatoM();
         modelList = new DefaultListModel();
         listZapato = new ArrayList<>();
-        listPedido = new ArrayList<>();
-        listOrder = new ArrayList<>();
+        listPedido = new ArrayList<>(10);
         modelTable = new DefaultTableModel();
 
     }
 
-    public List<Zapato> getListPedido() {
+    public List<Model.Zapato> getListPedido() {
         return listPedido;
-    }
-
-    public void setListPedido(List<Zapato> listPedido) {
-        this.listPedido = listPedido;
     }
 
     public void llenarTabla(JTable tabla) {
@@ -62,14 +58,12 @@ public class ZapatoController {
     }
 
     public void addListZapato(int index, int cantidad) {
-        Zapato z = new Zapato();
+        Model.Zapato z = new Model.Zapato();
         if (index != -1) {
             if (cantidad > 20) {
-                listOrder.get(index).setCantidad(cantidad);
-                listPedido.add(listOrder.get(index));
-
-                z = listPedido.get(index);
-
+                z = (Model.Zapato) modelList.get(index);
+                z.setCantidad(cantidad);
+                listPedido.add(z);
                 Object[] valores = new Object[5];
                 valores[0] = z.getNombre();
                 valores[1] = z.getIdMarca().getMarca();
@@ -78,13 +72,13 @@ public class ZapatoController {
                 valores[4] = z.getPrecio();
                 modelTable.addRow(valores);
 
-                JOptionPane.showMessageDialog(null, "Zapato agregado con exito", "Pedido", 1);
-                
+                JOptionPane.showMessageDialog(null, "Zapato agregado con exito", "PedidoC", 1);
+
             } else {
-                JOptionPane.showMessageDialog(null, "La Cantidad debe de ser mayo a 10 pares", "Error", 0);
+                JOptionPane.showMessageDialog(null, "La Cantidad debe de ser mayor a 20 pares", "AlertaC", 2);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No a seleccionado ningun zapato", "Error", 0);
+            JOptionPane.showMessageDialog(null, "No a seleccionado ningun zapato", "ErrorC", 0);
         }
 
     }
@@ -104,11 +98,9 @@ public class ZapatoController {
     }
 
     private void listOrderBy(String categoria) {
-        listOrder = new ArrayList<>();
         modelList.removeAllElements();
         listZapato.stream().filter((zapato) -> (zapato.getCategoria().getCategoria().equals(categoria))).forEach((zapato) -> {
             modelList.addElement(zapato);
-            listOrder.add(zapato);
         });
 
     }
@@ -120,6 +112,52 @@ public class ZapatoController {
             listOrderBy(categoria);
 
         });
+
+    }
+
+    public void abastecerBodega(Entity.Zapato z, Bodega b, int cantidad) {
+
+        if (zapatoM.abastecer(z, b, cantidad)) {
+            JOptionPane.showMessageDialog(null, "Transacion exitosa", "Bodega", 1);
+
+        } else {
+
+        }
+    }
+
+    public void sendList() {
+
+    }
+
+    public void create(Entity.Zapato z,JTable table) {
+        if (zapatoM.createZapato(z)) {
+            ZapatoCategoria form = new ZapatoCategoria(z);
+            form.setVisible(true);
+
+            Object[] valores = new Object[4];
+            valores[0] = z.getZapato();
+            valores[1] = z.getIdMarca().getMarca();
+            valores[2] = z.getIdTalla().getUs();
+            valores[3] = z.getPrecio();
+            modelTable.addRow(valores);
+
+            //JOptionPane.showMessageDialog(null,"ZAPATO INGRESADO CON EXITO","ZAPATOC", 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "ZAPATOC", 0);
+        }
+
+    }
+    
+    private JTable tableZ ;
+
+    public  void linkTableZapato( JTable table) {
+        this.tableZ=table;
+        modelTable.addColumn("ZAPATO");
+        modelTable.addColumn("MARCA");
+        modelTable.addColumn("CANTIDAD");
+        modelTable.addColumn("TALLA");
+        modelTable.addColumn("PRECIO PU");
+        table.setModel(modelTable);
 
     }
 

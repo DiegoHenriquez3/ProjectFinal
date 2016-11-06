@@ -67,6 +67,9 @@ public class EmpleadoController {
             valores[6] = nombg;
             modelTable.addRow(valores);
 
+            JOptionPane.showMessageDialog(null, "EMPLEADO INGRESADO CON EXITO", "EMPC", 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "ALGO SALIO MAL", "EMPC", 0);
         }
 
         alguien = new Empleado();
@@ -81,7 +84,7 @@ public class EmpleadoController {
         if (yesOrNo == 0) {
             alguien.setDui(dui);
             if (empModel.eliminarEmpleado(alguien)) {
-                
+
                 JOptionPane.showMessageDialog(null, "Empleado Eliminado con exito", "Atencion", 1);
 
             } else {
@@ -109,9 +112,9 @@ public class EmpleadoController {
         alguien.setIdBodega(bodega);
 
         if (empModel.actualizarEmpleado(alguien)) {
-
+            JOptionPane.showMessageDialog(null, "ACTUALIZADO CORRECTAMENTE", "EMPC", 1);
         } else {
-
+            JOptionPane.showMessageDialog(null, "ALGO SALIO MAL", "EMPC", 0);
         }
         bodega = new Bodega();
         alguien = new Empleado();

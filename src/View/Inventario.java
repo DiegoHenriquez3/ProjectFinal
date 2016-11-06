@@ -7,6 +7,7 @@ package View;
 
 import Controller.BodegaController;
 import Controller.InventarioController;
+import Model.Bodega;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,6 +84,11 @@ public class Inventario extends javax.swing.JFrame {
         });
 
         btnSupply.setText("Abastecer");
+        btnSupply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSupplyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +132,15 @@ public class Inventario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSupplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplyActionPerformed
+        // TODO add your handling code here:
+        Bodega bg = (Bodega)cbBodega.getSelectedItem();
+        Abastecer formA = new Abastecer(bg);
+        formA.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnSupplyActionPerformed
 
     /**
      * @param args the command line arguments

@@ -57,4 +57,6 @@ public class BodegaM {
         }
         return listBodega;
     }
+    
+ 
 }

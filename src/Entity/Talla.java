@@ -36,7 +36,7 @@ public class Talla implements Serializable {
     private BigDecimal idTalla;
     @Basic(optional = false)
     @Column(name = "US")
-    private BigInteger us;
+    private Double us;
     @Column(name = "EUR")
     private BigInteger eur;
     @Column(name = "CM")
@@ -53,7 +53,7 @@ public class Talla implements Serializable {
         this.idTalla = idTalla;
     }
 
-    public Talla(BigDecimal idTalla, BigInteger us) {
+    public Talla(BigDecimal idTalla, double us) {
         this.idTalla = idTalla;
         this.us = us;
     }
@@ -66,17 +66,21 @@ public class Talla implements Serializable {
         this.idTalla = idTalla;
     }
 
-    public BigInteger getUs() {
+    public Double getUs() {
         return us;
     }
 
-    public void setUs(BigInteger us) {
+    public void setUs(Double us) {
         this.us = us;
     }
+
+
 
     public BigInteger getEur() {
         return eur;
     }
+    
+    
 
     public void setEur(BigInteger eur) {
         this.eur = eur;
@@ -128,6 +132,7 @@ public class Talla implements Serializable {
 
     @Override
     public String toString() {
+        
         return String.valueOf(us);
     }
     

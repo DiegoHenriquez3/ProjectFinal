@@ -52,6 +52,8 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         validation.isPhoneNumber(txtTelefono);
         validation.isNit(txtNit);
         validation.isDui(txtDui);
+        validation.isName(txtNombre);
+        validation.justText(txtDir);
 
     }
 
@@ -351,6 +353,12 @@ public class IngresarEmpleados extends javax.swing.JFrame {
         int id = idBodega.getIdBodega();
         String nombg = cbBodega.getSelectedItem().toString();
         empController.insertarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id, nombg);
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtDir.setText("");
+        txtTelefono.setText("");
+        txtDui.setText("");
+        txtNit.setText("");
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -423,6 +431,7 @@ public class IngresarEmpleados extends javax.swing.JFrame {
             info[5] = tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 5).toString();
             UpdateEmpleado form = new UpdateEmpleado(info);
             form.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -490,11 +499,11 @@ public class IngresarEmpleados extends javax.swing.JFrame {
     private void filtro() {
         int columnaABuscar = -1;
         if (cbFindBy.getSelectedItem().equals("DUI")) {
-            columnaABuscar = 3;
-        } else if (cbFindBy.getSelectedItem().equals("Nombre")) {
-            columnaABuscar = 1;
-        } else if (cbFindBy.getSelectedItem().equals("Apellido")) {
             columnaABuscar = 2;
+        } else if (cbFindBy.getSelectedItem().equals("Nombre")) {
+            columnaABuscar = 0;
+        } else if (cbFindBy.getSelectedItem().equals("Apellido")) {
+            columnaABuscar = 1;
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(txtFind.getText(), columnaABuscar));
     }

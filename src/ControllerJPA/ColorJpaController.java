@@ -69,6 +69,7 @@ public class ColorJpaController implements Serializable {
             if (em != null) {
                 em.close();
             }
+           
         }
     }
 

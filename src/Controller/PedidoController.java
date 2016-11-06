@@ -36,18 +36,19 @@ public class PedidoController {
         zapatoM = new ZapatoM();
         this.pedido = new Pedido();
         this.pedidoM = new PedidoM();
-      
+
     }
 
     public void realizarPedido() {
-        ZapatoController listZapatos = new ZapatoController();
-        this.pedido.setZapatosList(listZapatos.getListPedido());
-        if (zapatoM.insertarZapatos(pedido)) {
+        /*if (zapatoM.insertarZapatos(pedido)) {
+            JOptionPane.showMessageDialog(null, "Pedido Realizado con exito", "Pedido", 1);
+        }*/
+        if (zapatoM.insertZapatosP(pedido)) {
             JOptionPane.showMessageDialog(null, "Pedido Realizado con exito", "Pedido", 1);
         }
     }
 
-    public void crearPedido(IngresarPedido form,List<Zapato> listZ) {
+    public void crearPedido(IngresarPedido form, List<Zapato> listZ) {
         pedido.setIdBodega((Bodega) form.getCbBodega().getSelectedItem());
         pedido.setIdSucursal((Sucursal) form.getCbSucursal().getSelectedItem());
         pedido.setEstado(0);
@@ -56,8 +57,8 @@ public class PedidoController {
         pedido.setZapatosList(listZ);
         JOptionPane.showMessageDialog(null, getFechaPedido(), "Pedido", 1);
         if (pedidoM.InsertarPedido(pedido)) {
-            if (zapatoM.insertarZapatos(pedido)){
-            JOptionPane.showMessageDialog(null, "Pedido Realizado", "Pedido", 1);
+            if (zapatoM.insertarZapatos(pedido)) {
+                JOptionPane.showMessageDialog(null, "Pedido Realizado", "Pedido", 1);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Pedido Realizado", "Pedido", 0);

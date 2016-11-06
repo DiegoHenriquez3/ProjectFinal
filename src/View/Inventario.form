@@ -123,6 +123,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Abastecer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSupplyActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

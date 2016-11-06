@@ -13,13 +13,15 @@ import Entity.Marca;
 import Entity.Municipio;
 import Entity.Sucursal;
 import Entity.Talla;
-import View.IngresarZapato;
+import Entity.Zapato;
+import View.ZapatoCategoria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -34,73 +36,100 @@ public class ControllerMainZ {
     private DefaultComboBoxModel modelTalla;
     private DefaultComboBoxModel modelMarca;
     private DefaultComboBoxModel modelColor;
-    private DefaultComboBoxModel modelCate;
     private DefaultComboBoxModel modelDepar;
     private DefaultComboBoxModel modelMunic;
+    // private DefaultListModel modelList;
     private DefaultTableModel modelTable;
+    private DefaultTableModel modelTableZ;
     private JComboBox dinamiCombo;
     private JComboBox masterCombo;
     private JTable table;
+    private JTable tableZapato;
+    private List<Zapato> listZ;
 
     public ControllerMainZ() {
 
         modelTalla = new DefaultComboBoxModel();
         modelMarca = new DefaultComboBoxModel();
         modelColor = new DefaultComboBoxModel();
-        modelCate = new DefaultComboBoxModel();
         modelDepar = new DefaultComboBoxModel();
         modelMunic = new DefaultComboBoxModel();
-        modelTable= new DefaultTableModel();
+        modelTable = new DefaultTableModel();
+        // modelList = new DefaultListModel();
         dinamiCombo = new JComboBox();
         masterCombo = new JComboBox();
+        modelTableZ = new DefaultTableModel();
         table = new JTable();
+        tableZapato = new JTable();
+        listZ = new ArrayList<>();
 
     }
 
-    public void llenarCombo(IngresarZapato form) {
-        //cbTalla.setModel(modelCombox);
-
-        List<Talla> tallList;
-        List<Marca> marcaList;
-        List<Color> colorList;
-        List<Categoria> catList;
-
+    public void fillCbCategoria(ZapatoCategoria form) {
+        List<Categoria> catList = new ArrayList<>();
         try {
-            TallaJpaController tallaC = new TallaJpaController(EntityMain.getEntity());
-            MarcaJpaController marcaC = new MarcaJpaController(EntityMain.getEntity());
-            ColorJpaController colorC = new ColorJpaController(EntityMain.getEntity());
             CategoriaJpaController catC = new CategoriaJpaController(EntityMain.getEntity());
-
-            tallList = tallaC.findTallaEntities();
-            marcaList = marcaC.findMarcaEntities();
-            colorList = colorC.findColorEntities();
             catList = catC.findCategoriaEntities();
+            int y = 50;
+            for (Categoria categoria : catList) {
+                JCheckBox jc = new JCheckBox();
+                jc.setName(categoria.getIdCategoria().toString());
+                jc.setText(categoria.toString());
+                jc.setSize(100, 30);
+                jc.setLocation(50, y);
+                jc.setVisible(true);
+                form.add(jc);
+                y += 30;
+            }
 
-            tallList.stream().forEach((t) -> {
-                modelTalla.addElement(t);
-            });
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorC", 0);
+        }
+    }
 
-            marcaList.stream().forEach((marca) -> {
-                modelMarca.addElement(marca);
-            });
-
+    public void fillCbColor(JComboBox combo) {
+        List<Color> colorList = new ArrayList<>();
+        combo.setModel(modelColor);
+        try {
+            ColorJpaController colorC = new ColorJpaController(EntityMain.getEntity());
+            colorList = colorC.findColorEntities();
             colorList.stream().forEach((color) -> {
                 modelColor.addElement(color);
             });
 
-            catList.stream().forEach((categoria) -> {
-                modelCate.addElement(categoria);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorC", 0);
+        }
+    }
+
+    public void fillCbMarca(JComboBox combo) {
+        List<Marca> marcaList = new ArrayList<>();
+        combo.setModel(modelMarca);
+        try {
+            MarcaJpaController marcaC = new MarcaJpaController(EntityMain.getEntity());
+            marcaList = marcaC.findMarcaEntities();
+            marcaList.stream().forEach((marca) -> {
+                modelMarca.addElement(marca);
             });
 
-            form.getCbTalla().setModel(modelTalla);
-            form.getCbColor().setModel(modelColor);
-            form.getCbMarca().setModel(modelMarca);
-            form.getCbCategoria().setModel(modelCate);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorC", 0);
+        }
+    }
+
+    public void fillCbTalla(JComboBox combo) {
+        List<Talla> tallList = new ArrayList<>();
+        combo.setModel(modelTalla);
+        try {
+            TallaJpaController tallaC = new TallaJpaController(EntityMain.getEntity());
+            tallList = tallaC.findTallaEntities();
+            tallList.stream().forEach((t) -> {
+                modelTalla.addElement(t);
+            });
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorC", 0);
         }
-
     }
 
     public void linkCombo(JComboBox comboSlave, JComboBox comboMaster) {
@@ -178,14 +207,14 @@ public class ControllerMainZ {
     }
 
     public void linkTable(JTable tab) {
-        
+
         this.table = tab;
         fillTable();
-        
+
     }
 
     private void fillTable() {
-         
+
         table.setModel(modelTable);
         modelTable.addColumn("NOMBRE");
         modelTable.addColumn("DIRECCION");
@@ -208,5 +237,117 @@ public class ControllerMainZ {
 
         }
     }
+
+    public void linkTableZapato(JTable tablaZ) {
+        tableZapato = tablaZ;
+        try {
+            ZapatoJpaController zapatoC = new ZapatoJpaController(EntityMain.getEntity());
+            listZ = zapatoC.findZapatoEntities();
+
+        } catch (Exception e) {
+
+        }
+        fillTablaZapato(listZ);
+
+    }
+
+    private void orderByTalla() {
+
+        listZ.sort(new Comparator<Zapato>() {
+            @Override
+            public int compare(Zapato o1, Zapato o2) {
+                return o1.getIdTalla().toString().compareTo(o2.getIdTalla().toString());
+            }
+        });
+
+        fillTablaZapato(listZ);
+
+    }
+
+    private void orderByNombre() {
+
+        listZ.sort(new Comparator<Zapato>() {
+            @Override
+            public int compare(Zapato o1, Zapato o2) {
+                return o1.getZapato().compareTo(o2.getZapato());
+            }
+        });
+
+        fillTablaZapato(listZ);
+
+    }
+
+    private void orderByPrecio() {
+
+        listZ.sort(new Comparator<Zapato>() {
+            @Override
+            public int compare(Zapato o1, Zapato o2) {
+                return o1.getPrecio().toString().compareTo(o2.getPrecio().toString());
+            }
+        });
+        fillTablaZapato(listZ);
+    }
+
+    private void fillTablaZapato(List<Zapato> list) {
+        try {
+            modelTableZ = new DefaultTableModel();
+            tableZapato.setModel(modelTableZ);
+            modelTableZ.addColumn("NOMBRE");
+            modelTableZ.addColumn("MARCA");
+            modelTableZ.addColumn("COLOR");
+            modelTableZ.addColumn("TALLA");
+            modelTableZ.addColumn("PRECIO U");
+            Object[] valores;
+
+            for (Zapato zapato : list) {
+                valores = new Object[5];
+                valores[0] = zapato.getZapato();
+                valores[1] = zapato.getIdMarca().getMarca();
+                valores[2] = zapato.getIdColor().getColor();
+                valores[3] = zapato.getIdTalla().getUs();
+                valores[4] = zapato.getPrecio();
+                modelTableZ.addRow(valores);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorC", 0);
+        }
+
+    }
+
+    public void linkComboOrder(JComboBox combOrder) {
+        DefaultComboBoxModel modelOrder = new DefaultComboBoxModel();
+        modelOrder.addElement("NOMBRE");
+        modelOrder.addElement("TALLA");
+        modelOrder.addElement("PRECIO");
+        combOrder.setModel(modelOrder);
+
+        changeComboOrder(combOrder);
+
+    }
+
+    private void changeComboOrder(JComboBox combo) {
+
+        combo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String valor = combo.getSelectedItem().toString();
+                if (valor.equals("NOMBRE")) {
+                    orderByNombre();
+
+                } else if (valor.equals("TALLA")) {
+                    orderByTalla();
+                } else if (valor.equals("PRECIO")) {
+                    orderByPrecio();
+                }
+            }
+        });
+
+    }
+
+    public List<Zapato> getListZ() {
+        return listZ;
+    }
+    
 
 }

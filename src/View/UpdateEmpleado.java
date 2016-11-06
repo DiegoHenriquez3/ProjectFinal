@@ -7,8 +7,8 @@ package View;
 
 import Controller.BodegaController;
 import Controller.EmpleadoController;
+import Controller.Validation;
 import Model.Bodega;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +18,7 @@ public class UpdateEmpleado extends javax.swing.JFrame {
 
     private BodegaController bodegaC;
     private EmpleadoController empC;
+    private Validation validar;
 
     /**
      * Creates new form UpdateEmpleado
@@ -37,6 +38,14 @@ public class UpdateEmpleado extends javax.swing.JFrame {
         txtNit.setText(info[3]);
         txtDir.setText(info[4]);
         txtTelefono.setText(info[5]);
+
+        validar = new Validation();
+        validar.isPhoneNumber(txtTelefono);
+        validar.isNit(txtNit);
+        validar.isDui(txtDui);
+        validar.isName(txtNombre);
+        validar.justText(txtDir);
+        
 
     }
 
@@ -216,7 +225,7 @@ public class UpdateEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApellidoActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-         
+
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String dui = txtDui.getText();
@@ -225,13 +234,14 @@ public class UpdateEmpleado extends javax.swing.JFrame {
         String telefono = txtTelefono.getText();
         Bodega idBodega = (Bodega) cbBodega.getSelectedItem();
         int id = idBodega.getIdBodega();
-       
+
         empC.actualizarEmpleado(nombre, apellido, dui, nit, direccion, telefono, id);
-        
-     
-          // JOptionPane.showMessageDialog(this,e.getCause(), "", 0);
-        
-       
+
+        IngresarEmpleados form = new IngresarEmpleados();
+        form.setVisible(true);
+        this.dispose();
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtDuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuiActionPerformed

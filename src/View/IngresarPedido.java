@@ -10,6 +10,7 @@ import Controller.CategoriaController;
 import Controller.PedidoController;
 import Controller.SucursalController;
 import Controller.TallaController;
+import Controller.Validation;
 import Controller.ZapatoController;
 import Model.Usuario;
 import javax.swing.JComboBox;
@@ -28,31 +29,34 @@ public class IngresarPedido extends javax.swing.JFrame {
     private TallaController tallaController;
     private PedidoController pedidoController;
     private Usuario user;
+    private Validation validar;
+
     /**
      * Creates new form IngresarPedido
      */
     public IngresarPedido(Usuario user) {
         initComponents();
-        this.user = user ;
+        this.user = user;
         scController = new SucursalController();
         scController.llenarSucursal(cbSucursal);
         bodegaC = new BodegaController();
         bodegaC.llenarBodega(cbBodega);
         catController = new CategoriaController();
-        catController.llenarCategoria(cbCategoria);
+        catController.fillComboCat(cbCategoria);
         tallaController = new TallaController();
         tallaController.llenarTallas(cbTallas);
         zController = new ZapatoController();
         zController.llenarList(jList);
         zController.comboChange(cbCategoria);
         zController.llenarTabla(jTbZapato);
-        pedidoController= new PedidoController();
-        
+        pedidoController = new PedidoController();
+        validar= new Validation();
+        validar.isNumber(txtCantidad);
+
     }
 
     public IngresarPedido() {
         initComponents();
-
     }
 
     /**
@@ -262,11 +266,11 @@ public class IngresarPedido extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(jTbZapato.getRowCount()>0){
-        pedidoController.crearPedido(this,zController.getListPedido());
-        pedidoController.realizarPedido();
-        }else{
-        JOptionPane.showMessageDialog(this,"Por favor agrege zapatos al pedido","Error",0);
+        if (jTbZapato.getRowCount() > 0) {
+            pedidoController.crearPedido(this, zController.getListPedido());
+            pedidoController.realizarPedido();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor agrege zapatos al pedido", "Error", 0);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -278,10 +282,20 @@ public class IngresarPedido extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        int cantidad=Integer.valueOf(txtCantidad.getText());
-        int index=jList.getSelectedIndex();
-        zController.addListZapato(index,cantidad);
-      
+
+        if (!txtCantidad.getText().equals("")) {
+            int cantidad = Integer.valueOf(txtCantidad.getText());
+            int index = jList.getSelectedIndex();
+            try {
+                zController.addListZapato(index, cantidad);
+                txtCantidad.setText("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "ERRORV", 0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No a ingresado la cantidad", "ERRORV", 0);
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void cbTallasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTallasActionPerformed
@@ -319,9 +333,6 @@ public class IngresarPedido extends javax.swing.JFrame {
     public void setUser(Usuario user) {
         this.user = user;
     }
-    
-    
-    
 
     /**
      * @param args the command line arguments

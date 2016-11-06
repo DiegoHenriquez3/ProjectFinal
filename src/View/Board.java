@@ -15,12 +15,13 @@ import javax.swing.JButton;
 public class Board extends javax.swing.JFrame {
 
     private Usuario user;
+
     /**
      * Creates new form Board
      */
     public Board(Usuario user) {
         initComponents();
-        this.user= user;
+        this.user = user;
     }
 
     public Board() {
@@ -38,39 +39,70 @@ public class Board extends javax.swing.JFrame {
     private void initComponents() {
 
         btnPedido = new javax.swing.JButton();
-        btnEmpleado = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnEstadisticas = new javax.swing.JButton();
+        btnZapato = new javax.swing.JButton();
+        btnSucursales = new javax.swing.JButton();
+        btnEmpleados = new javax.swing.JButton();
         btnInventario = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BOARD");
-        setResizable(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocationByPlatform(true);
+        setName("Main"); // NOI18N
+        setUndecorated(true);
+        setType(java.awt.Window.Type.POPUP);
 
-        btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/ubicacion1.png"))); // NOI18N
+        btnPedido.setText("P");
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPedidoActionPerformed(evt);
             }
         });
 
-        jButton3.setText("jButton1");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEstadisticas.setText("S");
+        btnEstadisticas.setToolTipText("");
+        btnEstadisticas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEstadisticasActionPerformed(evt);
             }
         });
 
-        jButton4.setText("jButton1");
+        btnZapato.setText("Z");
+        btnZapato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZapatoActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton1");
+        btnSucursales.setText("S");
+        btnSucursales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSucursalesActionPerformed(evt);
+            }
+        });
 
-        btnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/bodega.png"))); // NOI18N
+        btnEmpleados.setText("E");
+        btnEmpleados.setToolTipText("EMPLEADOS");
+        btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadosActionPerformed(evt);
+            }
+        });
+
+        btnInventario.setText("B");
         btnInventario.setActionCommand("btnInventario");
         btnInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInventarioActionPerformed(evt);
+            }
+        });
+
+        btnExit.setText("SALIR");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -82,16 +114,20 @@ public class Board extends javax.swing.JFrame {
                 .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExit)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,20 +135,20 @@ public class Board extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addComponent(btnZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnExit)
+                .addContainerGap())
         );
 
         btnPedido.getAccessibleContext().setAccessibleName("btnPedido");
-        btnEmpleado.getAccessibleContext().setAccessibleName("btnEmpleado");
-        btnEmpleado.getAccessibleContext().setAccessibleDescription("");
-        jButton3.getAccessibleContext().setAccessibleName("");
+        btnEstadisticas.getAccessibleContext().setAccessibleName("btnEmpleado");
         btnInventario.getAccessibleContext().setAccessibleName("btnInventario");
 
         pack();
@@ -120,31 +156,57 @@ public class Board extends javax.swing.JFrame {
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         // TODO add your handling code here:
-
+        Inventario form = new Inventario();
+        form.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZapatoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        IngresarZapato form = new IngresarZapato();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnZapatoActionPerformed
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         // TODO add your handling code here:
-         IngresarPedido formPedido = new IngresarPedido(user);
-         formPedido.setVisible(true);
-         this.setVisible(false);
+        IngresarPedido formPedido = new IngresarPedido(user);
+        formPedido.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnPedidoActionPerformed
 
-    public JButton getBtnPedido() {
-        return btnPedido;
-    }
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_btnExitActionPerformed
 
-    public void setBtnPedido(JButton btnPedido) {
-        this.btnPedido = btnPedido;
-    }
-    
+    private void btnSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSucursalesActionPerformed
+        // TODO add your handling code here:
+        CrearSucursal form = new CrearSucursal();
+        form.setVisible(true);
+        this.dispose();
 
-    
-    
+    }//GEN-LAST:event_btnSucursalesActionPerformed
+
+    private void btnEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticasActionPerformed
+        // TODO add your handling code here:
+        EstadisticaInventario form = new EstadisticaInventario();
+        form.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_btnEstadisticasActionPerformed
+
+    private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
+        // TODO add your handling code here:
+        IngresarEmpleados form = new IngresarEmpleados();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEmpleadosActionPerformed
+
+  
+
     /**
      * @param args the command line arguments
      */
@@ -181,11 +243,12 @@ public class Board extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEmpleado;
+    private javax.swing.JButton btnEmpleados;
+    private javax.swing.JButton btnEstadisticas;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnInventario;
     private javax.swing.JButton btnPedido;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnSucursales;
+    private javax.swing.JButton btnZapato;
     // End of variables declaration//GEN-END:variables
 }

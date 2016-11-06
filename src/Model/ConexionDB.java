@@ -7,7 +7,7 @@ package Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -42,8 +42,9 @@ public class ConexionDB {
          this.conexion = DriverManager.getConnection(this.stringCon,this.usuario,this.clave);
          
          
-        } catch (Exception e) {
-            
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e.getMessage(),"ERRORBASE", 0);
             
         }
           

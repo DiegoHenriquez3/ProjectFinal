@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,7 @@ public class ZapatoM {
         boolean flag = false;
         String query = "";
 
-        query = "INSERT INTO DETALLE_PEDIDO(ID_PEDIDO,CANTIDAD,ID_ZAPATO) VALUES("+pedido.getIdPedido()+",?,?)";
+        query = "INSERT INTO DETALLE_PEDIDO(ID_PEDIDO,CANTIDAD,ID_ZAPATO) VALUES(" + pedido.getIdPedido() + ",?,?)";
 
         PreparedStatement stmP = null;
 
@@ -53,14 +54,40 @@ public class ZapatoM {
                     conDB.commit();
                     conDB.setAutoCommit(true);
                 }
-
             }
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorZ", 0);
         }
         return flag;
 
+    }
+
+    public boolean insertZapatosP(Pedido pedido) {
+        boolean flag = false;
+        CallableStatement callPro = null;
+        try {
+            this.conDB = conexion.construirConexion();
+
+            for (Zapato zapato : pedido.getZapatosList()) {
+                callPro = conDB.prepareCall("{call INSERT_ZAPATO(?,?,?,?)}");
+                callPro.setInt(1, pedido.getIdPedido());
+                callPro.setInt(2, zapato.getCantidad());
+                callPro.setInt(3, zapato.getIdZapato());
+                callPro.registerOutParameter(4, OracleTypes.VARCHAR);
+                callPro.executeQuery();
+
+                if (callPro.getString(4).equals("TRANSACION REALIZADA CON EXITO")) {
+                    flag = true;
+                }
+
+            }
+            conDB.commit();
+            conDB.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorM", 0);
+        }
+        return flag;
     }
 
     public ArrayList<Zapato> listaZapatos() throws SQLException {
@@ -116,6 +143,60 @@ public class ZapatoM {
         }
 
         return listZapato;
-    } 
+    }
+
+    public boolean abastecer(Entity.Zapato z, Bodega b, int cantidad) {
+        boolean flag = false;
+        CallableStatement callPro = null;
+
+        try {
+            this.conDB = conexion.construirConexion();
+            callPro = conDB.prepareCall("{call abastecer(?,?,?,?)}");
+            callPro.setBigDecimal(1, z.getIdZapato());
+            callPro.setInt(2, b.getIdBodega());
+            callPro.setInt(3, cantidad);
+            callPro.registerOutParameter(4, OracleTypes.NUMBER);
+
+            callPro.executeQuery();
+
+            if (callPro.getInt(4) > -2) {
+                flag = true;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorM", 0);
+        }
+        return flag;
+    }
+
+    public boolean createZapato(Entity.Zapato z) {
+
+        CallableStatement callPro = null;
+        try {
+            this.conDB = conexion.construirConexion();
+            callPro = conDB.prepareCall("{call CREATE_ZAPATO(?,?,?,?,?,?)}");
+            callPro.setBigDecimal(1, z.getIdMarca().getIdMarca());
+            callPro.setBigDecimal(2, z.getPrecio());
+            callPro.setString(3, z.getZapato());
+            callPro.setBigDecimal(4, z.getIdColor().getIdColor());
+            callPro.setBigDecimal(5, z.getIdTalla().getIdTalla());
+            callPro.registerOutParameter(6, OracleTypes.NUMBER);
+
+            callPro.executeQuery();
+
+            if (callPro.getInt(6) > -1) {
+
+                z.setIdZapato(callPro.getBigDecimal(6));
+                return true;
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorM", 0);
+        }
+
+        return false;
+
+    }
 
 }

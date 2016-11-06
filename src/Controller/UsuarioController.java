@@ -36,7 +36,7 @@ public class UsuarioController {
         this.model = model;
     }
 
-    public void getLogin(String user, String pass) {
+    public void getLogin(String user, String pass,Login form) {
 
         login = new Usuario();
         model = new UsuarioM();
@@ -45,14 +45,15 @@ public class UsuarioController {
         login.setContra(pass);
 
         login = model.getUsuario(login);
-        Login lg = new Login();
+      
         if (login != null) {
             Board board = new Board(login);
             board.setVisible(true);
-            lg.setVisible(false);
+            form.dispose();
+            
 
         } else {
-            JOptionPane.showMessageDialog(lg, "Usuario o Contrasea Incorrecta", "Error Acces", 0);
+            JOptionPane.showMessageDialog(null, "Usuario o Contrasea Incorrecta", "Error Acces", 0);
         }
 
     }

@@ -25,22 +25,53 @@ public class Validation extends javax.swing.JFrame {
             public void keyTyped(KeyEvent e) {
 
                 char c = e.getKeyChar();
-
-                if (Character.isDigit(c)) {
+                System.err.println();
+                if (txt.getText().length() == 45) {
                     getToolkit().beep();
 
                     e.consume();
 
+                } else if (c > 32 && c < 35) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c > 35 && c <=47) {
+                    getToolkit().beep();
+
+                    e.consume();
+
+                } else if (c >= 58 && c <= 64) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 91 && c <= 96) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 123) {
+                    getToolkit().beep();
+
+                    e.consume();
                 }
+
+                }
+
+                @Override
+                public void keyPressed
+                (KeyEvent e
+                
+                
+                ) {
+
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
+                public void keyReleased
+                (KeyEvent e
+                
+                
+            
+            ) {
 
             }
         });
@@ -112,36 +143,126 @@ public class Validation extends javax.swing.JFrame {
             public void keyTyped(KeyEvent e) {
 
                 char c = e.getKeyChar();
-                
+
                 System.err.println();
                 if (Character.isLetter(c) || txt.getText().length() == 8) {
                     getToolkit().beep();
 
                     e.consume();
 
-                }
-                
-                else if (c>=32 && c<=47 ) {
+                } else if (c >= 32 && c <= 47) {
                     getToolkit().beep();
 
                     e.consume();
 
-                }
-                else if (c>=58 && c<=64 ){
-                 getToolkit().beep();
+                } else if (c >= 58 && c <= 64) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 91 && c <= 96) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 123) {
+                    getToolkit().beep();
 
                     e.consume();
                 }
-                else if (c>=91 && c<=96 ){
-                 getToolkit().beep();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+    }
+
+    public void isNumber(JTextField txt) {
+
+        txt.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                char c = e.getKeyChar();
+
+                System.err.println();
+                if (Character.isLetter(c) || txt.getText().length() == 5) {
+                    getToolkit().beep();
+
+                    e.consume();
+
+                } else if (c >= 32 && c <= 47) {
+                    getToolkit().beep();
+
+                    e.consume();
+
+                } else if (c >= 58 && c <= 64) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 91 && c <= 96) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 123) {
+                    getToolkit().beep();
 
                     e.consume();
                 }
-                else if (c>=123 ){
-                 getToolkit().beep();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+    }
+
+    public void isName(JTextField txt) {
+
+        txt.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                char c = e.getKeyChar();
+
+                System.err.println();
+                if (Character.isDigit(c) || txt.getText().length() == 25) {
+                    getToolkit().beep();
+
+                    e.consume();
+
+                } else if (c >= 32 && c <= 47) {
+                    getToolkit().beep();
+
+                    e.consume();
+
+                } else if (c >= 58 && c <= 64) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 91 && c <= 96) {
+                    getToolkit().beep();
+
+                    e.consume();
+                } else if (c >= 123) {
+                    getToolkit().beep();
 
                     e.consume();
                 }
+
             }
 
             @Override
