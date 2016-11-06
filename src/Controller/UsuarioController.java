@@ -50,6 +50,7 @@ public class UsuarioController {
             Board board = new Board(login);
             board.setVisible(true);
             form.dispose();
+            board.setLocationRelativeTo(null);
             
 
         } else {

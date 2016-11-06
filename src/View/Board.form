@@ -84,6 +84,7 @@
     <Component class="javax.swing.JButton" name="btnPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="P"/>
+        <Property name="toolTipText" type="java.lang.String" value="PEDIDOS"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btnPedido"/>
@@ -95,7 +96,7 @@
     <Component class="javax.swing.JButton" name="btnEstadisticas">
       <Properties>
         <Property name="text" type="java.lang.String" value="S"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="ESTADISTICAS"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btnEmpleado"/>
@@ -107,6 +108,7 @@
     <Component class="javax.swing.JButton" name="btnZapato">
       <Properties>
         <Property name="text" type="java.lang.String" value="Z"/>
+        <Property name="toolTipText" type="java.lang.String" value="ZAPATOS"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnZapatoActionPerformed"/>
@@ -115,6 +117,7 @@
     <Component class="javax.swing.JButton" name="btnSucursales">
       <Properties>
         <Property name="text" type="java.lang.String" value="S"/>
+        <Property name="toolTipText" type="java.lang.String" value="SUCURSALES"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSucursalesActionPerformed"/>
@@ -132,6 +135,7 @@
     <Component class="javax.swing.JButton" name="btnInventario">
       <Properties>
         <Property name="text" type="java.lang.String" value="B"/>
+        <Property name="toolTipText" type="java.lang.String" value="INVENTARIO"/>
         <Property name="actionCommand" type="java.lang.String" value="btnInventario"/>
       </Properties>
       <AccessibilityProperties>

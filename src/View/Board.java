@@ -55,6 +55,7 @@ public class Board extends javax.swing.JFrame {
         setType(java.awt.Window.Type.POPUP);
 
         btnPedido.setText("P");
+        btnPedido.setToolTipText("PEDIDOS");
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPedidoActionPerformed(evt);
@@ -62,7 +63,7 @@ public class Board extends javax.swing.JFrame {
         });
 
         btnEstadisticas.setText("S");
-        btnEstadisticas.setToolTipText("");
+        btnEstadisticas.setToolTipText("ESTADISTICAS");
         btnEstadisticas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEstadisticasActionPerformed(evt);
@@ -70,6 +71,7 @@ public class Board extends javax.swing.JFrame {
         });
 
         btnZapato.setText("Z");
+        btnZapato.setToolTipText("ZAPATOS");
         btnZapato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnZapatoActionPerformed(evt);
@@ -77,6 +79,7 @@ public class Board extends javax.swing.JFrame {
         });
 
         btnSucursales.setText("S");
+        btnSucursales.setToolTipText("SUCURSALES");
         btnSucursales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSucursalesActionPerformed(evt);
@@ -92,6 +95,7 @@ public class Board extends javax.swing.JFrame {
         });
 
         btnInventario.setText("B");
+        btnInventario.setToolTipText("INVENTARIO");
         btnInventario.setActionCommand("btnInventario");
         btnInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +163,7 @@ public class Board extends javax.swing.JFrame {
         Inventario form = new Inventario();
         form.setVisible(true);
         this.dispose();
+        form.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZapatoActionPerformed
@@ -173,6 +178,7 @@ public class Board extends javax.swing.JFrame {
         IngresarPedido formPedido = new IngresarPedido(user);
         formPedido.setVisible(true);
         this.dispose();
+        formPedido.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -180,6 +186,7 @@ public class Board extends javax.swing.JFrame {
         this.dispose();
         Login login = new Login();
         login.setVisible(true);
+        login.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSucursalesActionPerformed
@@ -187,6 +194,7 @@ public class Board extends javax.swing.JFrame {
         CrearSucursal form = new CrearSucursal();
         form.setVisible(true);
         this.dispose();
+        form.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnSucursalesActionPerformed
 
@@ -195,6 +203,7 @@ public class Board extends javax.swing.JFrame {
         EstadisticaInventario form = new EstadisticaInventario();
         form.setVisible(true);
         this.dispose();
+        form.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnEstadisticasActionPerformed
 
@@ -203,9 +212,8 @@ public class Board extends javax.swing.JFrame {
         IngresarEmpleados form = new IngresarEmpleados();
         form.setVisible(true);
         this.dispose();
+        form.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
-
-  
 
     /**
      * @param args the command line arguments

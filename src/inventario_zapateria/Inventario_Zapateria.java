@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package inventario_zapateria;
-import Model.Empleado;
-import Model.ConexionDB;
 /**
  *
  * @author Black Hat
@@ -17,7 +15,10 @@ public class Inventario_Zapateria {
      */
     public static void main(String[] args) {
       
-    
+         View.Login formLogin = new View.Login();
+         
+         formLogin.setVisible(true);
+         formLogin.setLocationRelativeTo(null);
  
     }
     

@@ -133,7 +133,6 @@ public class Login extends javax.swing.JFrame {
               usuario= txtUser.getText();
               pass=txtPass.getText();
               userC.getLogin(usuario, pass,this);
-        
         }
         else{
              
