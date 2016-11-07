@@ -62,8 +62,8 @@ public class ZapatoM {
 
     }
 
-    public boolean insertZapatosP(Pedido pedido) {
-        boolean flag = false;
+    public String insertZapatosP(Pedido pedido) {
+        String flag ="";
         CallableStatement callPro = null;
         try {
             this.conDB = conexion.construirConexion();
@@ -76,16 +76,14 @@ public class ZapatoM {
                 callPro.registerOutParameter(4, OracleTypes.VARCHAR);
                 callPro.executeQuery();
 
-                if (callPro.getString(4).equals("TRANSACION REALIZADA CON EXITO")) {
-                    flag = true;
-                }
+                flag= callPro.getString(4);
 
             }
             conDB.commit();
             conDB.close();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ErrorM", 0);
+          flag = e.getMessage();
         }
         return flag;
     }

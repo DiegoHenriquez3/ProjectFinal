@@ -43,9 +43,7 @@ public class PedidoController {
         /*if (zapatoM.insertarZapatos(pedido)) {
             JOptionPane.showMessageDialog(null, "Pedido Realizado con exito", "Pedido", 1);
         }*/
-        if (zapatoM.insertZapatosP(pedido)) {
-            JOptionPane.showMessageDialog(null, "Pedido Realizado con exito", "Pedido", 1);
-        }
+        JOptionPane.showMessageDialog(null,"MSG: "+zapatoM.insertZapatosP(pedido), "Pedido", 1);
     }
 
     public void crearPedido(IngresarPedido form, List<Zapato> listZ) {

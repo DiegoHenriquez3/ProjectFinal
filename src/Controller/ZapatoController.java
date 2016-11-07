@@ -118,7 +118,7 @@ public class ZapatoController {
     public void abastecerBodega(Entity.Zapato z, Bodega b, int cantidad) {
 
         if (zapatoM.abastecer(z, b, cantidad)) {
-            JOptionPane.showMessageDialog(null, "Transacion exitosa", "Bodega", 1);
+            JOptionPane.showMessageDialog(null, "Transaccion exitosa", "Bodega", 1);
 
         } else {
 

@@ -146,6 +146,11 @@ public class IngresarPedido extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(204, 0, 0));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/close-button.png"))); // NOI18N
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Realizar Pedido");
@@ -301,6 +306,13 @@ public class IngresarPedido extends javax.swing.JFrame {
     private void cbTallasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTallasActionPerformed
         // TODO add your handling code here    
     }//GEN-LAST:event_cbTallasActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        Board form = new Board();
+        form .setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     public JComboBox<String> getCbBodega() {
         return cbBodega;
